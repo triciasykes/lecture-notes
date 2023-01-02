@@ -225,5 +225,38 @@ const Square = ({square, index, handleGamePlay}) => {
 - add handleGamePlay to App.js
 - passed handleGamePlay to square to get index thru functional props
 
+git add, commit, push
+git checkout main, git pull, git branch -d index-position
+## User Story #3
+`As a user, when I click on one of the question marks instead of the alert the question mark turns into a tree emoji.`
 
- 
+- branch: tree-emoji
+
+- git checkout -b tree-emoji
+
+At this point, Square is done. We can focus on the logic in App.js. Square will display whatever we pass it.
+
+We know that clickedSquare holds the index. We want to update the array in state given an index. Remember, React doesn't want us to manipulate state directly. React wants to be in charge. So how do we set this up.
+
+We can make a copy of the array, manipulate it, and then let React set the state.
+Let's start by making a variable that holds the copy of the state value.  For this we can use the spread operator.
+
+```javascript
+  const handleGamePlay = (clickedSquare) => {
+    let updateBoard = [...board]
+  }
+```
+Then since we know the index, we can access the square and reassign the value to the tree-emoji, and then use setBoard method to set this updated array in state.
+```javascript
+  const handleGamePlay = (clickedSquare) => {
+    let updateBoard = [...board]
+    updateBoard[index] = "🌲"
+    setBoard(updateBoard)
+  }
+```
+## User Story #3 Complete!
+in README
+- branch: tree-emoji
+- made copy of the board using spread operator
+- updated the value of square at particular index to be tree emoji
+- emoji keyboard accessed by CTRL + CMD + Spacebar
