@@ -260,3 +260,71 @@ in README
 - made copy of the board using spread operator
 - updated the value of square at particular index to be tree emoji
 - emoji keyboard accessed by CTRL + CMD + Spacebar
+
+
+## User Story #4
+`As a user, if I select the winning square the question mark will become a treasure emoji and if I select the losing square the question mark will become a bomb emoji.`
+branch: treasure-bomb
+
+- $ git checkout -b treasure-bomb
+
+We need a random treasure location and a random bomb location. We can make state variables for these. Let's start with the treasure part.
+
+```javascript
+  const [treasureLocation, setTreasureLocation] = useState(Math.floor(Math.random() * board.length))
+```
+Add a console.log for treasureLocation to make sure it's working. 
+
+We know we need a conditional - if the treasure location is clicked then show a treasure ELSE show a tree.
+```javascript
+ const handleGamePlay = (clickedSquare) => {
+    // make copy of current state value using spread operator
+    const updateBoard = [...board]
+    // set condition for if treasure location is same as clicked index
+    if (clickedSquare === treasureLocation) {
+      // then reassign state value to treasure emoji
+      updateBoard[clickedSquare] = "💎"
+      // update state with updated board
+      setBoard(updateBoard)
+    } else {
+      // access value at clicked index and set value to tree emoji
+      updateBoard[clickedSquare] = "🌲"
+      // pass updateBoard to setBoard method to update state
+      setBoard(updateBoard)
+    }
+ }
+ ```
+
+ Now we can do the same for the bombLocation
+ ```javascript
+ const handleGamePlay = (clickedSquare) => {
+    // make copy of current state value using spread operator
+    const updateBoard = [...board]
+    // set condition for if treasure location is same as clicked index
+    if (clickedSquare === treasureLocation) {
+      // then reassign state value to treasure emoji
+      updateBoard[clickedSquare] = "💎"
+      // update state with updated board
+      setBoard(updateBoard)
+      // set condition for if bomb location is same as clicked index
+    } else if (clickedSquare === bombLocation) {
+      // reassign state value to bomb emoji
+      updateBoard[clickedSquare] = "💣"
+      // update state with updated board
+      setBoard(updateBoard)
+    } else {
+      // access value at clicked index and set value to tree emoji
+      updateBoard[clickedSquare] = "🌲"
+      // pass updateBoard to setBoard method to update state
+      setBoard(updateBoard)
+    }
+  }
+  ```
+Now we have a working game!
+
+## User Story 4 Complete!
+in README:
+- branch: treasure-bomb
+- added random location for bomb and treasure into state
+- added a conditional in the handleGamePlay method to produce different outcomes
+
