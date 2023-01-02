@@ -328,3 +328,61 @@ in README:
 - added random location for bomb and treasure into state
 - added a conditional in the handleGamePlay method to produce different outcomes
 
+## User Story 5 Complete!
+`As a user, I can click on a “Play Again” button that will restart the game`
+
+Now we want to be able to clear the board and start a new game when we click a button.  So first things first. Let's add a button to our App.js
+
+- branch: game-reset
+
+```javascript
+  <div>
+    <button className="reset-button" onClick={handleReset}>
+      Play Again!
+    </button>
+  </div>
+```
+
+We know that the button will have an onClick event, so let's set it to call a handleReset method. Now let's define the method. 
+```javascript
+  const handleReset = () => {
+
+  }
+```
+What needs to happen in this method:  
+1. board needs to hold all the initial values of question marks.
+2. treasureLocation needs to be set
+3. bomb Locatin needs to be set
+
+the set methods allow us to pass in whatever value we want so we can simply pass an array of question marks to setBoard.
+We can then also pass the random logic to both the setTreasureLocation and setBombLocation methods.
+
+```javascript
+const handleReset = () => {
+    setBoard(["?", "?", "?", "?", "?", "?", "?", "?", "?"])
+    setTreasureLocation(Math.floor(Math.random() * board.length))
+    setBombLocation(Math.floor(Math.random() * board.length))
+  }
+```
+Finally, let's style the button a bit.
+We should add a className to the div if we want to center the button.  Here we can just use text-align.
+```css
+.button-section {
+  text-align: center;
+}
+.reset-button {
+  background-color: royalblue;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 10%;
+  font-size: 1.5rem;
+}
+```
+## User story #5 complete!
+in README:
+- branch: game-reset
+- added a button at the bottom of the page
+- added handleReset onClick
+- handleReset sets the original state for board, sets a new random number for treasure and bomb
+
+# THE END
