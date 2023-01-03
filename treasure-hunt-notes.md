@@ -328,7 +328,7 @@ in README:
 - added random location for bomb and treasure into state
 - added a conditional in the handleGamePlay method to produce different outcomes
 
-## User Story 5 Complete!
+## User Story 5 
 `As a user, I can click on a “Play Again” button that will restart the game`
 
 Now we want to be able to clear the board and start a new game when we click a button.  So first things first. Let's add a button to our App.js
