@@ -2,20 +2,27 @@
 https://gitmoji.dev/
 
 # Setup using Github Classroom link
+* Note on github/rails and the repo.  Github classroom link will provide you with an empty repo.  You will see this view <show view> - there are no files, just steps you can take to link your local to a remote.  The first thing I want to do is create the rails app on my desktop
 
  - $  rails new full-stack-rails -d postgresql -T
  - $  cd full-stack-rails
  - $  rails db:create
+
+ Github classroom link will provide you with an empty repo.  You will see this view <show view>. There are no files, just steps you can take to link your local to a remote. We want git to manage our project. Rails comes with rails config already, 
+ - $ ls -a
+ This shows all the hidden folders and you'll see git is there. So to stop things from getting confusing and messy, we want git to manage everything at one level.  Think about if you created a repo in a repo. Yeah, we don't want that.  No nested projects/no conflict. So we are going to tell rails that git will manage by single repo.
+
  - $  git remote add origin <<https://github.com/learn-academy-2022-foxtrot/full-stack-kevin.git>>
- - $  git branch
+ - $  git branch  <!-- no main, so create one -->
  - $  git checkout -b main
- - $  git status
+ - $  git status <!-- normally don't want to use all because it's really easy to make mistakes>
  - $  git add .
  - $  git status
  - $  git commit -m 'initial commit'
  - $  git push origin main
  - $  bundle add rspec-rails
  - $  rails g rspec:install
+ 
  - $  rails g model Book name:string read:string
  - $  rails db:migrate
  - $  rails g controller Book
