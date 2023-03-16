@@ -3,17 +3,6 @@
 ### Iteration
 **Iteration** - the process of repeating an action over and over again a certain number of time or until a condition is met.
 
-Today we'll be discussing the FOR LOOP.  
- - for loops defines a variable and increments or decrements the variable on each iteration
- - for loops run until a condition is met
- - they do not innately connect to arrays, but we use them on arrays
- - they are great for counting
-
-  There are three pieces of information we need to set up a for loop
- - where to start counting
- - where to stop counting
- - how to get from the start to the stop (increment)
-
  ### Scope and Variable Declarations 
  Before we go any further though, I need to introduce you to variable declarations and scope
  Scope refers to where a variable is accessible or visible:
@@ -54,11 +43,12 @@ Today we'll be discussing the FOR LOOP.
     console.log(yourName)  
    // <!-- Now look at reassigning let -->
 
-  let myCat = "Kevin"
-  console.log(myCat)  // "Kevin"
 
-  myCat = "Geppetto"
-  console.log(myCat) //  "Geppetto"  this works!
+  let myCat = "Geppetto"
+  console.log(myCat) //  "Geppetto"  
+
+  myCat = "Kevin"
+  console.log(myCat)  // "Kevin" this works!
 
   const myDog = "Nika"
   myDog = "Theo"
@@ -67,6 +57,17 @@ Today we'll be discussing the FOR LOOP.
 
   ### LOOPS
   Ok, so now we understand a bit more about variables and scope. So let's look at how that information is important for For Loops.
+
+  Today we'll be discussing the FOR LOOP.  
+ - for loops defines a variable and increments or decrements the variable on each iteration
+ - for loops run until a condition is met
+ - they do not innately connect to arrays, but we use them on arrays
+ - they are great for counting
+
+  There are three pieces of information we need to set up a for loop
+ - where to start counting
+ - where to stop counting
+ - how to get from the start to the stop (increment)
 
  Info needed to set up a for loop
    it is common to use the variable name index to store current count (shorthand uses `i`)
