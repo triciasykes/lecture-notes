@@ -33,12 +33,12 @@
   Now let -remember, local scope - can only be accessed within the block
   ```javascript
   if(true) {
-    let yourName = "Aaron"
+    let yourName = "Felix"
     console.log(yourName)  // This will work
   }
 
   if(true) {
-    let yourName = "Aaron"
+    let yourName = "Felix"
   }
     console.log(yourName)  
    // <!-- Now look at reassigning let -->
