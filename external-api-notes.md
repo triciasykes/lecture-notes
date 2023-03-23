@@ -40,7 +40,7 @@ Fetch - a tool that allows for asynchronous requests
 Diagram for Promise: https://javascript.info/promise-basics
 
 #### Promises
-Fetch is a way to make asynchronous requests. When you send out a request and specify that it is going to be asynchronous, what you get back is a Promise. Promises represent the eventual completion (or failure) of an asynchronous operation. Promises will return either the payload of data or an error. A Promise is a proxy for a value not yet known. A Promise says, "I will definitely give you back something. I just have no way of knowing if it will succeed or fail or how long it will take."
+Fetch is a way to make asynchronous requests. When you send out a request and specify that it is going to be asynchronous, what you get back is a Promise. Promises represent the eventual completion (or failure) of an asynchronous operation. Promises will return either the payload of data or an error. A Promise is basically a proxy for a value not yet known. A Promise says, "I will definitely give you back something. I just have no way of knowing if it will succeed or fail or how long it will take."
 
 
 - Promises are JavaScript objects
@@ -146,36 +146,31 @@ To prevent this from happening, developers will ask users of their API to regist
 // export default nasaData
 // beautify or prettier 
 
-import React, { Component } from 'react'
-import './App.css'
-import nasaData from './mockNasa.js'
-class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      nasa: nasaData.photos,
-      pic: null
-    }
+import React, { useState } from 'react'
+import mockNasa from './mockNasa'
+
+const App = () => {
+
+  const [nasaData, setNasaData] = useState(mockNasa)
+  const getPic = () => {
+    let data = mockNasa.photos
+    let randomNum = Math.floor(Math.random() * data.length)
+    setNasaData( data[randomNum].img_src)
   }
-  getPic = () => {
-    let randomNum = Math.floor(Math.random() * this.state.nasa.length)
-    this.setState({pic: this.state.nasa[randomNum].img_src})
-  }
-  render() {
-    console.log(this.state.nasa)
+ 
     return(
       <>
         <h1>Mars Rover Pic</h1>
-        <button onClick={this.getPic}>Click here</button>
+        <button onClick={getPic}>Click here</button>
         <br />
-        {this.state.pic &&
-            <img style={{height: "200px"}} src={this.state.pic} alt="random Mars Rover" />
+        {nasaData &&
+            <img style={{height: "200px"}} src={nasaData} alt="random Mars Rover" />
         }
       </>
     )
   }
-}
-export default App
+
+  export default App
 ```
 
 #### NASA API Fetch
@@ -189,13 +184,14 @@ This seems like a really great place for us to place our fetch since we want to 
 - Start with adding it directly to the URL
 - [Hiding API Keys](https://www.pluralsight.com/guides/hiding-secret-keys-in-create-react-app)
 - Create an .env file and add it to .gitignore
-- REACT_APP_MY_NASA_API_KEY = "key here"
+- add `gem "dotenv-rails"` to Gemfile!
+- REACT_APP_API_KEY = "key here"
 - Update fetch call
 - ** Will need to restart server **
 
 ```javascript
 // First - Add the key directly to the URL.
-componentDidMount() {
+
   fetch("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1500&api_key=long-string-of-characters-here")
   .then(response => response.json())
   .then(payload => {
@@ -206,27 +202,42 @@ componentDidMount() {
 }
 ```
 
-Update state as well:
 
-```javascript
-    this.state = {
-      nasa: null,
-      pic: null
-    }
-```
+
 
 ```javascript
 // Second - Replace the key with an environment variable.
-componentDidMount() {
-  let apiKey = process.env.REACT_APP_NASA_API_KEY
-  fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1500&api_key=${apiKey}`)
-  .then(response => response.json())
-  .then(payload => {
-    console.log(payload)
-    this.setState({nasa: payload.photos, pic: payload.photos[0].img_src})
-  })
-  .catch(error => console.log(error))
-}
+import React, { useState } from 'react'
+
+
+  const App = () => {
+    // somewhere to store local data
+    const [nasaData, setNasaData] = useState("")
+  
+    const apiKey = process.env.REACT_APP_API_KEY
+  
+    const nasaFetch = () => {
+      fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=${apiKey}`)
+      .then(response => response.json())
+      .then(payload => setNasaData(payload))
+      .catch(errors => console.log(errors))
+    }
+  
+    // My components display
+    return (
+      <>
+        <h1>Mars Rover Pictures</h1>
+        <button onClick={nasaFetch}> Click me!</button>
+  
+        {nasaData && nasaData.photos.map((obj, index) => {
+          return <img src={obj.img_src} alt="" key={index} />
+        })}
+  
+      </>
+    )
+  }
+
+  export default App
 ```
 
 ### Review
@@ -244,18 +255,4 @@ componentDidMount() {
 - Remind the students of the appropriate naming conventions for their branch and file
 - Post pairs in Slack
 - Open breakout rooms with ability for participants to choose their room
-* System dependencies
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
