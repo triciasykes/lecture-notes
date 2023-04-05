@@ -232,6 +232,10 @@ p user_age.class
 user_age = gets.chomp.to_it
 ```
 ### Review
+- What are the keywords in the conditional statement?
+- What are the possible outcomes of a conditional statement evaluation?
+- What does gets do?
+- What does .chomp do?
 - What is def?
 - What is implicit return?
 - Where does the p and the puts belong in the method?
