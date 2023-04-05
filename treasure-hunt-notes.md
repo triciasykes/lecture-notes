@@ -10,7 +10,7 @@ Today we are going to recreate the Treasure Hunt game you all made in Jumpstart 
 - cd into repo
 - $ code .
 
-Similarly to the lightbulb challenge, we need to complete an app that has been created. We are not building from scratch. It is very important to review the code provided before you get started. Make sure all the necessary files exist. Look at the README and make sure you understand what is being asked.  
+Similarly to the Pig Latin challenge, we need to complete an app that has been created. We are not building from scratch. It is very important to review the code provided before you get started. Make sure all the necessary files exist. Look at the README and make sure you understand what is being asked.  
  **Review file structure s**
 
 We are missing a folder - node modules. Remember that wen cloning for the first time, you must run yarn to add necessary dependencies.
@@ -87,7 +87,7 @@ so to be safe we'll round up to 610px and add that to the board class.
 
 There are many ways to center divs on a page. For our purposes we are going to just stick with setting the properties for margin (T/B = 0, L/R - equal on each side)
 
-`margin: 0, auto`
+`margin: 0 auto`
 
 OK! We have a good looking gameboard here. Now we need to display the question marks.
 
@@ -153,7 +153,7 @@ Now define this method in SQUARE.js
 
 ```javascript
 const handleClick = () => {
-alert("aloha")
+alert("hola")
 }
 
 ```
@@ -352,7 +352,7 @@ We know that the button will have an onClick event, so let's set it to call a ha
 What needs to happen in this method:  
 1. board needs to hold all the initial values of question marks.
 2. treasureLocation needs to be set
-3. bomb Locatin needs to be set
+3. bomb Location needs to be set
 
 the set methods allow us to pass in whatever value we want so we can simply pass an array of question marks to setBoard.
 We can then also pass the random logic to both the setTreasureLocation and setBombLocation methods.

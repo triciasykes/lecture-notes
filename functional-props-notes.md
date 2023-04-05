@@ -3,7 +3,7 @@
 We discussed React Props yeterday and we learned that we can send props downstream from Parent component to Child component. But what do we do when we need to send data from Child to Parent?
 This is where **functional props** come in.
 
-In my terminal I'm in the hotel-lecture-notes repo on the main branch.
+In my terminal I'm in the bravo-lecture-notes repo on the main branch.
 - `$ git pull origin main`
 - `$ git branch`
 - delete any stale branches `git branch -d <branch-name>`
@@ -20,7 +20,7 @@ Everything is working. It's good practice to keep the server running and browser
 - delete all of App.js and App.css
 
 ## Project
-I've decided we are going to have a holiday party. It's virtual though - so let's make a menu that allows you to click to order an item. We are going to do this one step at a time. I'm going to need your help here because I'm not a great at planning food for others. 
+It's Opening Day for major league baseball.  So let's have a Bravo Tailgate Party! It's virtual though - so let's make a menu that allows you to click to order an item. We are going to do this one step at a time. I'm going to need your help here because I'm not a great at planning food for others. 
 
 *src/App.js*
 ```javascript
@@ -28,7 +28,7 @@ I've decided we are going to have a holiday party. It's virtual though - so let'
   const App = () => {
     return(
       <>
-        <h1>Hotel Holiday Happening</h1>
+        <h1>Bravo Tailgate Party</h1>
         <h3>Menu</h3>
           <ul>
             <li>item1</li>
@@ -59,15 +59,15 @@ How an we make this cleaner and more efficient?
  const App = () => {
 
   const [menu, setMenu] = useState([
-    { name: "Mac & Cheese", ordered: false}
-    { name: "Baked Potato", ordered: false}
-    { name: "2 Tamales", ordered: false}
-    { name: "Roast Beef", ordered: false}
+    { name: "Hot Dog", ordered: false}
+    { name: "Peanuts", ordered: false}
+    { name: "Popcorn", ordered: false}
+    { name: "Cracker Jack", ordered: false}
   ])
   return(
     <>
-       <h1>Hotel Holiday Happening</h1>
-        <h3>Menu</h3>
+       <h1>Bravo Tailgate Party</h1>
+       <h3>Menu</h3> 
     </>
   )
  }
@@ -77,9 +77,7 @@ How an we make this cleaner and more efficient?
 ```javascript
  const MenuItem = () => {
   return(
-    <>
-      <h4>Food Item</h4>
-    </>
+    <h4>Item name</h4>
   )
  }
  export default MenuItem
@@ -102,7 +100,7 @@ How an we make this cleaner and more efficient?
 
 Each menu item object can be accessed as props. Let's show the name of the item. 
 
- **TODO: add `{props.item.name}` in place of Food Item Name in MenuItem component**
+ **TODO: add `{props.item.name}` in place of Item Name in MenuItem component**
  
  We can use something called **conditional rendering** to display a message ONLY when the item has been ordered. To do this, we use JavaScript's logical AND as a toggle between when a JSX element is shown and when it is ignored.  Then we can add a button that corresponds to each menu item.
 
@@ -112,13 +110,15 @@ Each menu item object can be accessed as props. Let's show the name of the item.
 
     return(
       <>
-       <h4>{props.item.name}</4>
+       <h4>{props.item.name}</h4>
        {props.item.ordered && <h4>Ordered</h4>}
        <button>Order</button>
       </>
     )
   }
 ```
+### Destructuring props
+  show how to destructure within the function, then as paramsvo 
 
 ## The Problem
 
@@ -140,7 +140,7 @@ We want to click on the button and have our selection marked as ordered. Which m
   *`src/App.js`*
 ```javascript
 
-  <h1>Hotel Holiday Happening</h1>
+  <h1>bravo Holiday Happening</h1>
   <h2>Menu</h2>
   {menu.map((item, index)=> {
     return(
@@ -174,7 +174,7 @@ We want to click on the button and have our selection marked as ordered. Which m
 **rewrite onClick method**
 `<button onClick={props.orderMenuItem(props.index)}>Order</button>`
 
-However, if we look at the console - we see all these clicks and I haven't done any clicking. This current setup creates an Immediate Invoked Function -> it won't wait for the actual click and will continue to invoke itself. This can lead to a Stack overflow - ( program tries to execute more actions than it has the memory to perform.)
+However, if we look at the console - we see all these clicks and I haven't done any clicking. This current setup creates an Immediately Invoked Function -> it won't wait for the actual click and will continue to invoke itself. This can lead to a Stack overflow - ( program tries to execute more actions than it has the memory to perform.)
 
 But there is a solution - we can add an anonymous fxn INSIDE the onClick.
 *`src/components/MenuItem.js`*
@@ -193,24 +193,24 @@ import MenuItem from "./components/MenuItem";
 const App = () => {
 
   const [menu, setMenu] = useState([
-    { name: "Mac & Cheese", ordered: false}
-    { name: "Baked Potato", ordered: false}
-    { name: "2 Tamales", ordered: false}
-    { name: "Roast Beef", ordered: false}
+    { name: "Hot Dog", ordered: false }
+    { name: "Peanuts", ordered: false }
+    { name: "Popcorn", ordered: false }
+    { name: "Cracker Jack", ordered: false }
   ])
   return(
-     const orderMenuItem = (selectedItem) => {
-   console.log("item: ", menu[selectedItem]);
-   menu[selectedItem].ordered = true;
-   // Notice nothing happens...why?
-   setMenu([...menu]);
- };
+    const orderMenuItem = (selectedItem) => {
+    console.log("item: ", menu[selectedItem])
+    menu[selectedItem].ordered = true
+    // Notice nothing happens...why?
+    setMenu([...menu])
+ }
  
  return (
    <>
      <div className="main-container">
        <div className="menu-div">
-         <h1>Hotel Holiday Happening</h1>
+         <h1>Bravo Holiday Happening</h1>
         <h3>Menu</h3>
          {menu.map((item, index) => {
            return (
@@ -220,10 +220,12 @@ const App = () => {
                orderItem={orderMenuItem}
                index={index}
              />
-           );
+           )
          })}
        </div>
+       
      </div>
+
    </>
  )
  ```
@@ -234,11 +236,11 @@ const App = () => {
 
 ```javascript  
  <h4>Your order: </h4>
-      {menu.filter(item => item.ordered === true).map(i =>{
-        return(
-          <h3>{i.name}</h3>
-        )
-      })
+    {menu.filter(item => item.ordered === true).map(i =>{
+      return(
+        <h3>{i.name}</h3>
+      )
+    })
     }
 ```
 
