@@ -13,9 +13,9 @@
 # String.methods
 # Look at all these methods. Honestly,I'd need to look up most of these. Thank goodness for Google.
 # Let's grab one that I know.
-# str = 'Foxtrot'
-# str.include? 'fo'
-# str.include? 'F'
+# str = 'Bravo'
+# str.include? 'br'
+# str.include? 'B'
 
 # everything is described in a heirarchy of objects that belong to classes
 # any rule I write is goverend by rules of all Strings - how it's created, updated, etc.
@@ -38,9 +38,9 @@
       # getter method:
       def get_show_data
         if @watch
-          "You have watched the show #{@title} is #{@run_time} long."
+          "You have watched #{@title} which is #{@run_time} long."
         else
-          "You have not watched the show #{@title} is #{@run_time} long."
+          "You have not watched #{@title} which is #{@run_time} long."
         end
       end
     
@@ -70,9 +70,9 @@ class StreamingApp
   end
   def show_data
     if @consumed_media
-      "You have consumed the media called #{@title} which is #{@run_time}."
+      "You have consumed the media  #{@title} which is #{@run_time}."
     else
-      "You have NOT consumed the media called #{@title} which is #{@run_time}."
+      "You have NOT consumed the media  #{@title} which is #{@run_time}."
     end
   end
 end
