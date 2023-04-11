@@ -1,42 +1,31 @@
 # RSPEC LECTURE NOTES
 
-## Overview
-- Test-driven development is the process of creating tests first, seeing the test fail, then creating the code to make the test pass
-- RSpec is a testing language for Ruby
-- RSpec stands for Ruby specification or specs
-- RSpec is installed via RubyGems which is a package manager for Ruby
-- Tests should only look at the output of the code, not the inner magic
-
 ## Process
 - Ensure you are in the cohort-lecture-examples repo
 - Ensure your local is up to date and there are no stale branches
 - Create a new branch
 - Create a folder called `ruby-rspec`
-- Create a Ruby file called `rspec_book.rb`
+- Create a Ruby file called `book.rb`
 - Create a Ruby spec file called `rspec_spec.rb`
+
 - Run tests with `rspec rspec_spec.rb`
 
-## Additional Notes/Goals
- - Looking at similarities between Jest and RSpec
-
-## Takeaways
-- Practicing TDD
-- RubyGems is package manager for Ruby, gem is the package of code
-- RSpec syntax
-- Difference between the expect statements with {} and ()
-
 ## Lecture
+For this lecture I'm going to need a directory `ruby-rspec` and 2 files `touch book.rb` `touch book_spec.rb`.  One is a ruby file, the other is a spec file or specification file. The spec file works to communicate to the computer what I'm looking to build. It also tells other developers and clients what I'm supposed to be building and what the expectations are of what's built out. The spec file is going to define what I expect from my book.rb file and if my book doesn't match the specifications, it's not a good book.
+
 RSpec is a Domain Specific Language which is a language that has been specialized for a particular task. In this case RSpec is specialized for testing Ruby code.
-
-Who remembers what TDD stands for: test-driven development, is a developer philosophy of writing tests(or specs, short for specifications) first and then creating the code that will make the tests pass. TDD is closely associated with the phrase `red-green-refactor`. Which means we will write our tests first and see them fail(red), then write the code to make it pass(green), then if we need to do any refactor or make any edits on the code, we can do so confidently.
-
-### RSpec Installs and Setup
-Let's start by creating a class for Book.  Book is going to be a template from which we can create many instances of books. The Book class will have both data and behavior.  A book can have a title, and author, and pages, which are all data. We can also read a book which will change the current page we're on. Since this is an action (or behavior) we will call them methods.
-
-We are going to have two files. One is going to have the Ruby code and one is going to have the tests. 
 
 - Google:  https://rubygems.org/gems/rspec/versions/3.4.0
 - $`gem install rspec`
+
+Who remembers what TDD stands for: test-driven development, is a developer philosophy of writing tests(or specs, short for specifications) first and then creating the code that will make the tests pass. What does `red-green-refactor` mean?  Write our tests first and see them fail(red), then write the code to make it pass(green), then refactor the code to something simpler or more effective while checking it still passes. 
+Another phrase you may come across in testing is `Arrange Act Assert`: setting up a test environment, making a change in that environment, asserting a result on the data from the change.
+
+### RSpec Installs and Setup
+Today this example will involve creating a class for Book.  Book is going to be a template from which we can create many instances of books. The Book class will have both data and behavior.  A book can have a title, and author, and pages, which are all data. We can also read a book which will change the current page we're on. Since this is an action (or behavior) we will call them methods.
+
+There are a couple of things we will need include in our spec file in order for our tests to run.  Require is a ruby method that will give us access to everything in a rspec.  Require_relative will give us access to everything in book.rb
+
 - in rspec_spec.rb:
    `require 'rspec'
    `require_relative 'rspec_book'
@@ -51,10 +40,10 @@ require 'rspec'
 require_relative 'rspec_book'
 
 describe 'Book' do
-  it 'has to be real' do
+  it 'when a book is instantiated' do
     expect{ Book.new }.to_not raise_error
   end
-end
+end  
 ```
 Now let's write the code that will make the test pass
 
