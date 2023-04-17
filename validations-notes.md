@@ -4,7 +4,7 @@
 - $ `rails new validations -d postgresql -T`
 
 # Lecture
-Validations are active Record that are added to the model class and will run each time you create or update the instance.  They will validate/check that the data given is what you want.
+Validations are added to the model class and will run each time you create or update the instance.  They will validate/check that the data given is what you want.
 
 When working with the countries db last week, we had a few times when we were dealing with a lot of null values. Remember Null behaves differently than 0. It is not good practice to structure your database to have multiple null values in a column.
 
@@ -30,7 +30,8 @@ Now we have a new folder in here labeled `spec` which will hold our RSpec tests.
 
 # Data
 First we want to generate a model with appropriate columns and data types
-- $ rails g model Animal name:string amount:integer
+- $ rails g model Animal name:string age:integer 
+
 
 It's important to setup RSpec BEFORE generating the model so rails automatically generates a spec file for us.  Otherwise, we will have to create the file ourselves (which is fine, just not efficient)
 
@@ -51,7 +52,7 @@ The first test will be vague, but it's checking that I can make an instance in m
 
 ```ruby
 RSpec.describe Animal, type: :model do
-  it 'it valid with valid attributes' do 
+  it 'is valid with valid attributes' do 
     cat = Animal.create(name:'Cat', amount:'5')
     expect(cat).to be_valid
   end
@@ -102,12 +103,14 @@ cat has a nil value because there is nothing saying that it can't
 - $ cat.errors
 cat.errors will show an array of any errors that may exist. Currently this array is empty. Our test is telling us that we want to see this array to not be empty, meaning it will have an error. That is why the test failed.
 
+*** DON'T FORGET TO EXIT RAILS C ***
 - $ exit
+*** DON'T FORGET TO EXIT RAILS C ***  
 
 Now I am going to comment back in my validation
 
 - $ rails c 
-- $ cat = Animal.create patients:5 
+- $ cat = Animal.create age:5 
 - $ cat
 
 
@@ -124,7 +127,7 @@ So realistically, writing tests has a little bit of a backwards thinking. We hav
 Let's write another test. Just like we validated name and tested that name must have some content provided, let's write a test that checks that our amount column is valid.
 
 ```ruby
-  it 'is not valid without an amount' do
+  it 'is not valid without an age' do
     cat = Animal.create(name:'Cat')
     expect(cat.errors[:name]).to_not be_empty
   end
@@ -172,7 +175,22 @@ Let's just add it to the range test we already have
   end
 ```
 
-The challenges are going to require you to jump between a few different lessons we have gone through recently.  The stretch challenges will requeire some further research that is not directly in the syllabus. There are some resources provided. A HUGE tip from someone who learned the hard way:  ALWAYS, ALWAYS use the documentation FIRST, before you just look for answers on stack overflow. The documentation will help you understand rather than just copy someone else's code.  Which will not help you later.
+Uniqueness
+
+```ruby
+  it 'is not valid without a phone number' do
+    cat = Animal.create(name:'Kevin', age:9)
+    expect(cat.errors[:phone]).to_not be_empty
+  end
+
+  it 'is not valid with duplicate phone number' do
+    cat = Animal.create(name:'Kevin', age: 9, phone: '555-1212')
+    dupe = Animal.create(name:'Kevin', age: 9, phone: '555-1212')
+    expect(dupe.errors[:phone]).to_not be_empty
+  end
+  ```
+
+The challenges are going to require you to jump between a few different lessons we have gone through recently.  The stretch challenges will require some further research that is not directly in the syllabus. There are some resources provided. A HUGE tip from someone who learned the hard way:  ALWAYS, ALWAYS use the documentation FIRST, before you just look for answers on stack overflow. The documentation will help you understand rather than just copy someone else's code.  Which will not help you later.
 
 
 

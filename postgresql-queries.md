@@ -22,9 +22,9 @@ end
 
 Remember the class defines the structure of data and then I can create any number of instances with 
 ```ruby
+Student.new('Felix', 'Bravo')
 Student.new('Romeo', 'Hotel')
 Student.new('Heath', 'Foxtrot')
-Student.new('Nicole', 'Delta')
 ```
 I can make as many instances as I need.  As developers, when we create a class, we need to determine wht data is important and how to organize it. We're going to use the same idea in Databases to determine what the database will look like
 
@@ -42,7 +42,7 @@ Each row is an object - it is an instance in the database
 - Model --> class
 - row --> object
 
-- each row is a UNIQUE instance.  Even if we have duplicate data, each object is unique. So say we have 2 rows with identical data?  We don't have variables that we could assing the different objects to.  But we do have is this column on the left which is called the PRIMARY_KEY.  PK is a unique identifier.  It is very common that it's a number (but not always) and it gies each row/object a different id.
+- each row is a UNIQUE instance.  Even if we have duplicate data, each object is unique. So say we have 2 rows with identical data?  We don't have variables that we could assign the different objects to.  But we do have is this column on the left which is called the PRIMARY_KEY.  PK is a unique identifier.  It is very common that it's a number (but not always) and it gives each row/object a different id.
 
 quick review - For DBs, Model is like a class - doesn't do anything, it defines the columns and types of data stored.  Each row is a set of information, it is an instance in the Model class.
 
