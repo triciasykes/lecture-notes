@@ -1,18 +1,16 @@
 # Restful Routes
 
-Sarah spent some time talking about how the internet works from a full stack developer perspective. The idea of this request response cycle and that the request was a location and an action and the response was a status code and a payload.  then we saw the location is the URL and yesterday and today you all did routes, views and controllers, and params. You had to go into your routes to specify what was going to match in the URL in order to trigger a
+Sarah spent some time talking about how the internet works from a full stack developer perspective. The idea of this request response cycle and that the request was a location and an action and the response was a status code and a payload.  then we saw the location is the URL and yesterday you all did routes, views and controllers, and params. You had to go into your routes to specify what was going to match in the URL in order to trigger a
 particular route. Then also in your routes you had to define an HTTP verb -  you had to say okay we're going to this place and  it's going to be a get request meaning it's going to display information. 
 As a full stack developer you're going in and you define your location, you define your action, you make that request, your status code is going to come back as a success or an error and then the payload that you request gets loaded.
 
-Today we need to talk about restful routes. restful routes are what map CRUD actions and the corresponding HTTP verb into how we construct the controller for a full stack application.  restful routes is an idea that a very
-smart person made up and everyone else followed because it makes sense.  rails has a very very restful route architecture  so it follows  these things exactly. so again naming conventions are incredibly important! 
+Today we need to talk about restful routes. RESTful Routes (Representational State Transfer) are what map CRUD actions and the corresponding HTTP verb into how we construct the controller for a full stack application.  Restful routes are just a conventional pattern to follow when structuring different routes for interacting with the server whenever an HTTP request is made by the client.  Rails has a very very restful route architecture so it follows this pattern exactly. Again naming conventions are incredibly important! 
 
 To talk about restful routes let's first talk about CRUD - what does CRUD stand for?
 create read update delete
 and what is CRUD?
- it's a developer methodology. we are making sure that these actions exist in our code. I'm using CRUD as a philosophy to say Can my user see the information that I need them to see? can
-my user create the information I need them to create?, etc. Then that maps over to our HTTP
-verbs which IS  something that we code into the application. What are our five HTTP verbs
+ it's a developer methodology. we are making sure that these actions exist in our code. I'm using CRUD as a philosophy to say 
+Can my user see the information that I need them to see? can my user create the information I need them to create?, etc. Then that maps over to our HTTP verbs which IS  something that we code into the application. What are our five HTTP verbs
 get post put patch delete 
 Let’s map these:
 if I'm doing a create CRUD action what is the HTTP verb  - POST
@@ -47,23 +45,17 @@ edit - skip for now
 update - updating existing data
 Destroy - removing data
 
-You've done all of these five things that we've talked about so far in active
-record in the rails console right. Those are actions that we're doing on the data side that then we're going to present to the user to be able to do from a View perspective. The controller is going to help us get between those two things.
+You've done all of these five things that we've talked about so far in active record in the rails console right. Those are actions that we're doing on the data side that then we're going to present to the user to be able to do from a View perspective. The controller is going to help us get between those two things.
 
 # New and Edit
-Let's go back to NEW and EDIT because these are things that we
-haven't had to use yet in terms of doing a performing CRUD actions
-new exists because there is a point where we need our user to provide
-content that then can be posted to the database . CREATE is a post action. Does post
-display of view to the user? No.  POST takes data and puts it into the database
-but we need to present a View to my user that's going to allow them to put data
-into the database. We need a form that a user can fill out.  Then we take that data from the inputs and that data gets created in the database
+Let's go back to NEW and EDIT because these are things that we haven't had to use yet in terms of doing a performing CRUD actions.
+New exists because there is a point where we need our user to provide content that then can be posted to the database . CREATE is a post action. Does post adisplay of view to the user? No.  POST takes data and puts it into the database but we need to present a View to our user that's going to allow them to put data into the database. We need a form that a user can fill out.  Then we take that data from the inputs and that data gets created in the database
 
-The same thing with update. Update on its own is a put or a patch request so there's nothing for our user to see, but we need to offer our user a place to update information. So edit
-is also a form. 
-Does filling out a form equal new items in the database? No. Because you would have to submit it. You have to be able to fill out a form and then there's a specific action on almost every form that you've ever filled out that's going to submit that information. Usually some kind of Click action - some kind of call that says click here and then this becomes a submitted section of data and so that
-is the difference between new and create and with edit and update ->
+The same thing with update. Update on its own is a put or a patch request so there's nothing for our user to see, but we need to offer our user a place to update information. So edit is also a form. 
+
+Does filling out a form equal new items in the database? No. Because you would have to submit it. You have to be able to fill out a form and then there's a specific action on just about all forms that's going to submit that information. Usually some kind of Click action - some kind of call that says click here and then this becomes a submitted data and so that is the difference between new and create and with edit and update ->
 new is not actually creating the data it's just providing our user a place to see it. Create is that submit button. Even though we may think of new and create as closely tied together, new is actually a GET request. Same with EDIT. Why? because it's just providing a visual place where we can see information - user adds info on the form and then at the end there's some kind of call to either create or update which triggers either our post or patch request.
+
 Obviously,delete and Destroy are connected from our HTTP verb to our controller action.
 
 This is the the format that we're going to follow today we're going to work through these controller actions!

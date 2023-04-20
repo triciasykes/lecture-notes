@@ -8,7 +8,7 @@ https://gitmoji.dev/
  - $  cd full-stack-rails
  - $  rails db:create
 
- Github classroom link will provide you with an empty repo.  You will see this view <show view>. There are no files, just steps you can take to link your local to a remote. We want git to manage our project. Rails comes with rails config already, 
+  There are no files, just steps you can take to link your local to a remote. We want git to manage our project. Rails comes with git already, 
  - $ ls -a
  This shows all the hidden folders and you'll see git is there. So to stop things from getting confusing and messy, we want git to manage everything at one level.  Think about if you created a repo in a repo. Yeah, we don't want that.  No nested projects/no conflict. So we are going to tell rails that git will manage by single repo.
 
@@ -63,6 +63,8 @@ README.md
   in book folder
   make file `index.html.erb`
   add <%= @books %>
+  
+  localhost:3000/books
 
 ```html   
 <h2>My Reading Tracker</h2>
@@ -76,7 +78,7 @@ Then back to Routes
 add:  root 'book#index'
 
 
-Updat Index
+Update Index
 - a list of all the things
 - get request
 - read CRUD action
@@ -120,7 +122,7 @@ in Views
  Only problem now is that we have to manipulate the url (do we ever do this in real life?)
  We will use the link_to
  We want the routes to be in charge of navigation
- So create an alias on show route, we can then reference it like a variable and it will take us to the show page.  We use the as: 'book' as our alias.
+ We want to create an alias, or specify a name for the route using the :as optio. Let's create an alias on the show route. We can then reference it like a variable and it will take us to the show page.  We use the as: 'book' as our alias.
 
  `  get 'books/:id' => 'book#show', as: 'book'`
 
@@ -133,6 +135,10 @@ in Views
 Let's also add an alias for the index, so we can return to the index page.  Let rails be in charge of the things it wants to be incharge of.  Internal navigation.
 in Routes
 get 'books' => 'book#index', as: 'books'
+
+```html
+<h5> <%= link_to 'Back to Books', books_path %></h5>
+```
 
 Update Show
 Show
@@ -295,6 +301,9 @@ Although delete doesn't have a view, We do need an alias because we need to call
   delete_book_path %></p>
   
 By default, most browser actions fall into get or post.  If doing a patch or delete action will need to indicate that you are making a different kind of request. 
+<p><%= button_to 'Remove Book', 
+  delete_book_path, method: 'delete' %></p>
+
 NOTE: Show delete and edit all need the params because we need the id  
 
 
@@ -318,7 +327,7 @@ put this on show page as a link.
 
 <p>
   <%= link_to 'Edit Book',
-    edit_book_path(book) %>
+    edit_book_path(@book) %>
 </p>
 
 VIEW:
