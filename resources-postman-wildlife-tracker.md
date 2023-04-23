@@ -63,7 +63,7 @@ Ok, so let's think about our restful routes.
 - Update: updates existing data on one thing
 - Create: adds new instance to db
 - Edit: form
-- Destroy: deletesinstance from db
+- Destroy: deletes instance from db
 
 Since we're not including view, we don't need forms!
  - Index
@@ -194,7 +194,7 @@ Postman:
  - URL: localhost:3000/students/4
  - we can see the student who just removed pops up
  - To double check, let get all the students
- 
+ cdri
   
 
 
