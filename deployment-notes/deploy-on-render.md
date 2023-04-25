@@ -1,6 +1,8 @@
 # Deployment to Render
 
 ## In your Rails App
+*** Create directory in app/javascript called `_tests_` and move all `test.js` files to this folder. ***
+
 1. Open config/database.yml and find the production section at bottom of the file. Modify it to gather the database configuration from the DATABASE_URL environment variable:
 
 `config/database.yml`
