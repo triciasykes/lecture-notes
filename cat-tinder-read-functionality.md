@@ -64,6 +64,7 @@ https://reactstrap.github.io/?path=/story/home-installation--page
   style={{
     width: '18rem'
   }}
+  key={index}
 >
   <img
     alt="Sample"
@@ -178,21 +179,22 @@ import { useParams } from "react-router-dom"
 
 const CatShow = ({ cats }) => {
   const { id } = useParams()
-  let selectedCat = cats?.find((cat) => cat.id === +id)
+  let currentCat = cats?.find((cat) => cat.id === +id)
   return (
-    <main className="cat-show-cards">
-      {selectedCat && (
-        <>
-          <img
-            alt={` ${selectedCat.name}'s profile`}
-            src={selectedCat.image}
-            className="cat-show-img"
-          />
-        </>
-      )}
-    </main>
+       <>
+        {currentCat && (
+          <>
+            <img
+              alt={` ${currentCat.name}'s profile`}
+              src={currentCat.image}
+            />
+            <h3>{currentCat.enjoys}</h3>
+          </>
+        )}
+      </>
   )
 }
+
 
 export default CatShow
 ```
@@ -201,7 +203,7 @@ export default CatShow
 1. create CatIndex.test.js
 2. Copy CatIndex code and paste 
 3. Stub out tests
-So here we see we used map in CatIndex, but here we're looking at a single cat, so no need for map.
+So here we see we used map in CatIndex, but now we're looking at a single cat, so no need for map.
 For our test, we can just look at the first cat in the array, so let's pass in a particular cat on which we can make our assertions and we can test paths. This type of test will be a bit trickier than any we've done so far.
 
 Instead of importing BrowserRouter, we will import MemoryRouter from react-router-dom, and we'll also need Routes and Route (remember these are used in App js to provide the paths.) Because of how React Router works, you need to have your components wrapped in a router otherwise all your routing code will throw errors and break. This means even if you want to test a single component, you will need to wrap that component inside of a router or it will throw errors. If you are testing your code in a way that it does not have access to the browser (such as unit testing) then the routers we have talked about so far will throw errors since they all depend on the browser for the URL. The MemoryRouter on the other hand stores all its information in memory which means it never accesses the browser and is ideal when trying to unit test components. Other than this specific use case, though, this router is never to be used.
@@ -213,29 +215,38 @@ import CatShow from './CatShow'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import mockCats from '../mockCats'
 
-
-  
-    const renderShow = () => {
-      render(
-      <MemoryRouter initialEntries={["/catshow/1"]}>
-        <Routes>
-            <Route path="catshow/:id" element={<CatShow cats={mockCats} />}/>
-        </Routes>
-      </MemoryRouter>
-      )
-    }
-
-  describe("<CatShow />", ()=>{
-    it("renders a card with a cat enjoys", ()=>{
-      renderShow()
-      expect(screen.getByText(mockCats[0].enjoys)).toBeInTheDocument()
-    })
-    it("renders a card with a cat name and age", () => {
-      renderShow()
-      expect(screen.getByText(`${mockCats[0].name}, ${mockCats[0].age }`)).toBeInTheDocument()
-    })
+const renderShow = () => {
+  render(
+  <MemoryRouter initialEntries={["/catshow/1"]}>
+    <Routes>
+        <Route path="catshow/:id" element={<CatShow cats={mockCats} />}/>
+    </Routes>
+  </MemoryRouter>
+  )
+}
+describe("<CatShow />", () => {
+  it("renders without crashing", () => {
+    renderShow()
   })
+
+  it('renders a card with what the cat enjoys', () =>{
+    renderShow()  
+    expect(screen.getByText(mockCats[0].enjoys)).toBeInTheDocument()
+  })
+})
   ```
+  We get an error.  
+  `TestingLibraryElementError: Unable to find an element with the text: Talking to the dogs walking by. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.`
+
+  Let's checkout the documentation.  We are trying to match a string.  
+  https://testing-library.com/docs/queries/about/#textmatch-examples
+  
+  Looking at the docs, it seems that we can add `{ exact: false }` to the argument.
+  add the following to the test:
+    `expect(screen.getByText(mockCats[0].enjoys, {exact: false})).toBeInTheDocument()`
+
+  Using this method, we can actually change the text to be:
+      `expect(screen.getByText(`${mockCats[0].name} likes ${mockCats[0].enjoys}`, { exact: false})).toBeInTheDocument()`
 
 We then want to connect the show page and index page so that you can click on the button on the index page and get the show page of that cat.
 
