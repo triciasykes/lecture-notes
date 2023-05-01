@@ -1,6 +1,7 @@
 ### Trello Intro Lecture Notes
+For the rest of this week and part of the week we get back from break we will be working on a full stack application called Cat Tinder. For those of you who are not familiar with what Tinder is, it is a dating website, where we have converted it to a cat (or your choice of animal or object) "dating" website, where you can see a list of cats, view their information, create, update or delete a cat.
 
-This week we are going to be creating a full-stack app.  It is a decoupled app, which means we are actually creating 2 applications and then connecting them. We will use React on frontend and a Rails API on the backend.  How do we do that? We will learn about making a fetch request from the FE to our own API and return the data to display. 
+  It is a decoupled app, which means we are actually creating 2 applications and then connecting them. We will use React on frontend and a Rails API on the backend.  Then we'll connect them and learn how to fetch data and return the data to display. 
 
 For the project you'll be in teams of two or three, the same group the whole week. We are going to start by introducing you to Trello for Project Management. Each group will have their own Trello board, so let's take some time now to navigate Trello, learn the process and our expectations of you.  You will also be using Trello for apartment app and capstone, so learning this process is very important.  Dev teams use a PM tool, so being familiar with Trello will help you in your internship and beyond. First, let's have everyone create their own account on Trello. Once you've created your board, please post the email address you used in the thread so we can invite you to your boards.
 
