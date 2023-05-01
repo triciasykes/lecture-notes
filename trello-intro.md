@@ -13,6 +13,23 @@ Each card has a dedicated branch name. Swim lanes: DOING - only move if you are 
 
 Here is the process for PR review requests.  This is very important! We will be using this process throughout the rest of the cohort.
 
+- Click on card for more information
+  - Add team members onto card
+  - Card is complete ONLY when you have completed the task on the card. 
+  - Stick to what the card asks for, check boxes as you complete them
+  - Each card has a branch name
+  - Move to doing if you are working on task
+  - Move to PR review once you have completed the task and you are waiting for review.
+    - When requesting a review:
+      - Submit PR
+      - Post in slack: @Will, @TriciaSykes Please review my PR for ____ 
+          PR: ---Link to PR---   
+          Trello: ---Link to Trello Card---
+      - When one of us is reviewing, we will place the 👀 emoji.
+      - When we approve the PR, we will place the ✅ emoji
+      - Once you merge and delete the branch, you will add the github parrot emoji
+      - If there are requested changes, we will leave a comment saying to take a look at our feedback in GitHub.
+
 You do not need to make a PR after your initial commit.  Remember we are creating our main branch with that first commit. BUT you do need to drop the github url into the main channel and ping both of us, like this:
 
 @TriciaSykes @Will please add branch portections to this repo
