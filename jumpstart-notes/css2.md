@@ -1,3 +1,5 @@
+
+```css
 body {
   background-image: url(;
   background-position: center;
@@ -53,3 +55,4 @@ h1 {
   animation-direction: alternate;
   animation-timing-function: ease-in-out;
 }
+```
