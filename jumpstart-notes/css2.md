@@ -1,7 +1,7 @@
 
 ```css
 body {
-  background-image: url(;
+  background-image: url('your url here');
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
