@@ -196,9 +196,9 @@ The order of parameters will ALWAYS be value, index, array but they can be calle
 
 ```javascript
 numsArray.forEach((turtle, hippo, sloth) => {
-  console.log("turtle:", turtle)
-  console.log("hippo:", hippo)
-  console.log("sloth:", sloth)
+  console.log("value:", turtle)
+  console.log("index:", hippo)
+  console.log("array:", sloth)
 })
 ```
 
@@ -206,7 +206,7 @@ forEach doesn't return anything. If you add a return you will get undefined.
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
 
-FROM MDN: There is no way to stop or break a forEach() loop owhter than by throwing an exception. If you need such behavior, the forEach() method is the wrong tool.
+FROM MDN: There is no way to stop or break a forEach() loop other than by throwing an exception. If you need such behavior, the forEach() method is the wrong tool.
 
 - Again, there is no return
 - This is a generic HOF, only use if another tool won't get the job done.
@@ -261,17 +261,19 @@ const evenOrOdd = (array) => {
   })
 }
 ```
+
 console.log(evenOrOdd(numsArray))
 
-As you can see, there are multiple layers in the block of code.  each layer is separated by some curly braces and has a level of indentation to help show the level we are working in within the block of code.
+As you can see, there are multiple layers in the block of code. each layer is separated by some curly braces and has a level of indentation to help show the level we are working in within the block of code.
 
 Good examples:
 ** Let's look at Netflix - Everything about each show's display is consistent
 ** Look at github to show all repos in the organization
-** Use search to filter repos in organization
+\*\* Use search to filter repos in organization
 
 ## Filter
-Sometimes we are going to want to iterate over an array and narrow down what is returned and this is where filter comes in. 
+
+Sometimes we are going to want to iterate over an array and narrow down what is returned and this is where filter comes in.
 Just as it sounds, filter will filter out what we don't want and keep only what we do want.
 
 To do this, we will need to provide some kind of a condition like we did above and we will return only the things that meet that criteria
@@ -280,16 +282,30 @@ Filter has a built-in IF STATEMENT - it works by looking for boolean values as a
 In short, it returns a SUBSET of the array
 
 ```javascript
-let searchP = showArray.filter(value => {
+let searchP = showArray.filter((value) => {
   return value.includes("p") || value.includes("P")
 })
 console.log(searchP)
 ```
-*** Maybe show this as extra example ***
+
+**_ Maybe show this as extra example _**
 
 create a function that takes in array of mixed data and returns an array of only odd numbers
+
 ```javascript
-const mixedDataArray = [ 3, "hi", true, 50, 4, null, "Bravo", 52, false, "yo", 15 ]
+const mixedDataArray = [
+  3,
+  "hi",
+  true,
+  50,
+  4,
+  null,
+  "Bravo",
+  52,
+  false,
+  "yo",
+  15,
+]
 
 // create fxn named onlyOdds
 // parameter is an array
@@ -301,31 +317,36 @@ const mixedDataArray = [ 3, "hi", true, 50, 4, null, "Bravo", 52, false, "yo", 1
 
 // typeof returns a STRING indicating the data type of the operand's value
 
-console.log(typeof 42)  // "number"
+console.log(typeof 42) // "number"
 
 const onlyOdds = (array) => {
-  let oneType = mixedDataArray.filter(value => typeof value === "number")
+  let oneType = mixedDataArray.filter((value) => typeof value === "number")
   console.log(oneType)
-  let odds = oneType.filter(value => value % 2 === 1)
+  let odds = oneType.filter((value) => value % 2 === 1)
   return odds
 }
 console.log(onlyOdd(mixedDataArray))
 ```
+
 This might melt your minds a little but we can actually refactor this to be even cleaner
 
 ```javascript
 const onlyOdds = (array) => {
-  let odds = mixedDataArray.filter(value => typeof value === "number" && value % 2 !== 0)
+  let odds = mixedDataArray.filter(
+    (value) => typeof value === "number" && value % 2 !== 0
+  )
   return odds
 }
 console.log(onlyOdds(mixedDataArray))
 ```
+
 ## Other Higher Order Functions
+
 Some other higher order functions to possibly explore in your own time are sort and reduce.
 
 <!-- Difference between .forEach and .map: -->
 
-<!-- 
+<!--
 ```javascript
 const myArray = [3, 4, 5, 6]
 
@@ -339,4 +360,3 @@ We will need to console log instead if we need to see what is happening:
 const forEachArray = myArray.forEach(value => console.log("^^", value * 2))
 console.log(forEachArray)
 ``` -->
-
