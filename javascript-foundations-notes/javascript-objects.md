@@ -175,7 +175,11 @@ console.log(pets.name) //--> undefined
 console.log(pets[0])
 console.log(pets[0].name)
 console.log(pets[0].name.toUpperCase())
+```
 
+### use HOF to iterate over array of objects
+
+```javascript
 // Let's say we want to get all the pet names - just the names.  What tool can we use?
 // get all the pet names
 const getAllTheNames = pets.map((value) => {
@@ -199,5 +203,31 @@ return object.name
 }
 console.log(getAllTheNames(pets))
 
-// JSON - JavaScript Object Notation, language of data on the internet
+
+// create a function that returns the name and type of each pet
+
+//Pseudocode:
+// declare a function
+// iterate .map()
+// return result
+
+//input = pets array
+// output =  "Tala is a dog"
+
+const petType = (arrayOfPets) => {
+    return arrayOfPets.map(value => {
+        return `${value.name} is a ${value.type}`
+    })
+}
+
+console.log(petType(pets))
+
+const petName = (array) => {
+    return array.filter(value => {
+        return value.age >= 8
+    })
+}
+console.log(petName(pets))
 ```
+
+JSON - JavaScript Object Notation, language of data on the internet
