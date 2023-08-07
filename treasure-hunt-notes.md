@@ -4,8 +4,7 @@ Today we are going to recreate the Treasure Hunt game you all made in Jumpstart 
 
 ## Setup
 
-- Github classroom project link: https://classroom.github.com/a/7sLvMT5D
-
+- Github classroom project link: https://classroom.github.com/a/yi7piHbY
 - clone repo
 - cd into repo
 - $ code .
@@ -13,7 +12,7 @@ Today we are going to recreate the Treasure Hunt game you all made in Jumpstart 
 Similarly to the Pig Latin challenge, we need to complete an app that has been created. We are not building from scratch. It is very important to review the code provided before you get started. Make sure all the necessary files exist. Look at the README and make sure you understand what is being asked.  
  **Review file structure s**
 
-We are missing a folder - node modules. Remember that wen cloning for the first time, you must run yarn to add necessary dependencies.
+We are missing a folder - node modules. Remember that when cloning for the first time, you must run yarn to add necessary dependencies.
 
 - $ yarn
 - $ yarn start
@@ -109,7 +108,7 @@ const Square = ({ square }) => {
 }
 ```
 
-This is a neat trick - we can actually pass {square} with the curly braces which is the same as props.square. It's a way of object destructuring - pulling out the value and saves us from having to write props. blah blah blah.
+This is a cool trick - we can actually pass {square} with the curly braces which is the same as props.square. It's a way of object destructuring - pulling out the value and saves us from having to write props. blah blah blah.
 
 Finally - let's style the question marks.
 
@@ -153,71 +152,75 @@ Now define this method in SQUARE.js
 
 ```javascript
 const handleClick = () => {
-alert("hola")
+  alert("hola")
 }
-
 ```
+
 While this works, each square doesn't know where it is in respect to the board. So let's pass index in our map function and then pass it in the component call. This way we can pass it downstream to Square.js.
 
-***src/App.js***
+**_src/App.js_**
+
 ```javascript
- {board.map((square, index) => {
-    return (
-      <Square
-        square={square}
-        index={index}
-      />
-    )
-  })}
+{
+  board.map((square, index) => {
+    return <Square square={square} index={index} />
+  })
+}
 ```
 
-***src/components/Square.js***
-```javascript
-const Square = ({square, index}) => {
+**_src/components/Square.js_**
 
+```javascript
+const Square = ({ square, index }) => {
   const handleClick = () => {
-   alert(index)
+    alert(index)
   }
   return (
     <>
-      <div className="square" onClick={handleClick}>{square} </div>
+      <div className="square" onClick={handleClick}>
+        {square}{" "}
+      </div>
     </>
   )
 }
 ```
-Ok - We are closer! But when I click on square I'm going to want to modify the array and need the logic in App. 
+
+Ok - We are closer! But when I click on square I'm going to want to modify the array and need the logic in App.
 Need alert to come from App not Square. It needs to be available in App.
 
 We have been setting this up, but App.js still doesn't know where the square is. Let's build out the basic structure for our game play logic.
 We will need to use Functional Props.
 
-***App.js***
+**_App.js_**
 
 ```javascript
- const handleGamePlay = (clickedSquare) => {
+const handleGamePlay = (clickedSquare) => {
   alert(clickedSquare)
- }
+}
 
- <Square 
-    handleGamePlay={handleGamePlay} 
-    square={square}
-    index={index}
-    key={index} 
-    />
+;<Square
+  handleGamePlay={handleGamePlay}
+  square={square}
+  index={index}
+  key={index}
+/>
 ```
 
 Notice the key error - any time we iterating over a display element, React requires a unique identifier to tell react which element needs updating. This helps React function better - doesn't change anything visually.
 
-***Square.js***
+**_Square.js_**
 Now in Square js we can add handleGamePlay to the params and then replace alert with the method.
+
 ```javascript
 const Square = ({square, index, handleGamePlay}) => {
 
   const handleClick = () => {
     handleGamePlay(index)
   }
-  ```
+```
+
 ## User Story #2 Complete!
+
 - Return to README
 - added onClick to square div
 - added handleClick method to square.js
@@ -227,7 +230,9 @@ const Square = ({square, index, handleGamePlay}) => {
 
 git add, commit, push
 git checkout main, git pull, git branch -d index-position
+
 ## User Story #3
+
 `As a user, when I click on one of the question marks instead of the alert the question mark turns into a tree emoji.`
 
 - branch: tree-emoji
@@ -239,30 +244,35 @@ At this point, Square is done. We can focus on the logic in App.js. Square will 
 We know that clickedSquare holds the index. We want to update the array in state given an index. Remember, React doesn't want us to manipulate state directly. React wants to be in charge. So how do we set this up.
 
 We can make a copy of the array, manipulate it, and then let React set the state.
-Let's start by making a variable that holds the copy of the state value.  For this we can use the spread operator.
+Let's start by making a variable that holds the copy of the state value. For this we can use the spread operator.
 
 ```javascript
-  const handleGamePlay = (clickedSquare) => {
-    let updateBoard = [...board]
-  }
+const handleGamePlay = (clickedSquare) => {
+  let updateBoard = [...board]
+}
 ```
+
 Then since we know the index, we can access the square and reassign the value to the tree-emoji, and then use setBoard method to set this updated array in state.
+
 ```javascript
-  const handleGamePlay = (clickedSquare) => {
-    let updateBoard = [...board]
-    updateBoard[index] = "🌲"
-    setBoard(updateBoard)
-  }
+const handleGamePlay = (clickedSquare) => {
+  let updateBoard = [...board]
+  updateBoard[index] = "🌲"
+  setBoard(updateBoard)
+}
 ```
+
 ## User Story #3 Complete!
+
 in README
+
 - branch: tree-emoji
 - made copy of the board using spread operator
 - updated the value of square at particular index to be tree emoji
 - emoji keyboard accessed by CTRL + CMD + Spacebar
 
-
 ## User Story #4
+
 `As a user, if I select the winning square the question mark will become a treasure emoji and if I select the losing square the question mark will become a bomb emoji.`
 branch: treasure-bomb
 
@@ -271,85 +281,95 @@ branch: treasure-bomb
 We need a random treasure location and a random bomb location. We can make state variables for these. Let's start with the treasure part.
 
 ```javascript
-  const [treasureLocation, setTreasureLocation] = useState(Math.floor(Math.random() * board.length))
+const [treasureLocation, setTreasureLocation] = useState(
+  Math.floor(Math.random() * board.length)
+)
 ```
-Add a console.log for treasureLocation to make sure it's working. 
+
+Add a console.log for treasureLocation to make sure it's working.
 
 We know we need a conditional - if the treasure location is clicked then show a treasure ELSE show a tree.
-```javascript
- const handleGamePlay = (clickedSquare) => {
-    // make copy of current state value using spread operator
-    const updateBoard = [...board]
-    // set condition for if treasure location is same as clicked index
-    if (clickedSquare === treasureLocation) {
-      // then reassign state value to treasure emoji
-      updateBoard[clickedSquare] = "💎"
-      // update state with updated board
-      setBoard(updateBoard)
-    } else {
-      // access value at clicked index and set value to tree emoji
-      updateBoard[clickedSquare] = "🌲"
-      // pass updateBoard to setBoard method to update state
-      setBoard(updateBoard)
-    }
- }
- ```
 
- Now we can do the same for the bombLocation
- ```javascript
- const handleGamePlay = (clickedSquare) => {
-    // make copy of current state value using spread operator
-    const updateBoard = [...board]
-    // set condition for if treasure location is same as clicked index
-    if (clickedSquare === treasureLocation) {
-      // then reassign state value to treasure emoji
-      updateBoard[clickedSquare] = "💎"
-      // update state with updated board
-      setBoard(updateBoard)
-      // set condition for if bomb location is same as clicked index
-    } else if (clickedSquare === bombLocation) {
-      // reassign state value to bomb emoji
-      updateBoard[clickedSquare] = "💣"
-      // update state with updated board
-      setBoard(updateBoard)
-    } else {
-      // access value at clicked index and set value to tree emoji
-      updateBoard[clickedSquare] = "🌲"
-      // pass updateBoard to setBoard method to update state
-      setBoard(updateBoard)
-    }
+```javascript
+const handleGamePlay = (clickedSquare) => {
+  // make copy of current state value using spread operator
+  const updateBoard = [...board]
+  // set condition for if treasure location is same as clicked index
+  if (clickedSquare === treasureLocation) {
+    // then reassign state value to treasure emoji
+    updateBoard[clickedSquare] = "💎"
+    // update state with updated board
+    setBoard(updateBoard)
+  } else {
+    // access value at clicked index and set value to tree emoji
+    updateBoard[clickedSquare] = "🌲"
+    // pass updateBoard to setBoard method to update state
+    setBoard(updateBoard)
   }
-  ```
+}
+```
+
+Now we can do the same for the bombLocation
+
+```javascript
+const handleGamePlay = (clickedSquare) => {
+  // make copy of current state value using spread operator
+  const updateBoard = [...board]
+  // set condition for if treasure location is same as clicked index
+  if (clickedSquare === treasureLocation) {
+    // then reassign state value to treasure emoji
+    updateBoard[clickedSquare] = "💎"
+    // update state with updated board
+    setBoard(updateBoard)
+    // set condition for if bomb location is same as clicked index
+  } else if (clickedSquare === bombLocation) {
+    // reassign state value to bomb emoji
+    updateBoard[clickedSquare] = "💣"
+    // update state with updated board
+    setBoard(updateBoard)
+  } else {
+    // access value at clicked index and set value to tree emoji
+    updateBoard[clickedSquare] = "🌲"
+    // pass updateBoard to setBoard method to update state
+    setBoard(updateBoard)
+  }
+}
+```
+
 Now we have a working game!
 
 ## User Story 4 Complete!
+
 in README:
+
 - branch: treasure-bomb
 - added random location for bomb and treasure into state
 - added a conditional in the handleGamePlay method to produce different outcomes
 
-## User Story 5 
+## User Story 5
+
 `As a user, I can click on a “Play Again” button that will restart the game`
 
-Now we want to be able to clear the board and start a new game when we click a button.  So first things first. Let's add a button to our App.js
+Now we want to be able to clear the board and start a new game when we click a button. So first things first. Let's add a button to our App.js
 
 - branch: game-reset
 
 ```javascript
-  <div>
-    <button className="reset-button" onClick={handleReset}>
-      Play Again!
-    </button>
-  </div>
+<div>
+  <button className="reset-button" onClick={handleReset}>
+    Play Again!
+  </button>
+</div>
 ```
 
-We know that the button will have an onClick event, so let's set it to call a handleReset method. Now let's define the method. 
+We know that the button will have an onClick event, so let's set it to call a handleReset method. Now let's define the method.
+
 ```javascript
-  const handleReset = () => {
-
-  }
+const handleReset = () => {}
 ```
-What needs to happen in this method:  
+
+What needs to happen in this method:
+
 1. board needs to hold all the initial values of question marks.
 2. treasureLocation needs to be set
 3. bomb Location needs to be set
@@ -359,13 +379,15 @@ We can then also pass the random logic to both the setTreasureLocation and setBo
 
 ```javascript
 const handleReset = () => {
-    setBoard(["?", "?", "?", "?", "?", "?", "?", "?", "?"])
-    setTreasureLocation(Math.floor(Math.random() * board.length))
-    setBombLocation(Math.floor(Math.random() * board.length))
-  }
+  setBoard(["?", "?", "?", "?", "?", "?", "?", "?", "?"])
+  setTreasureLocation(Math.floor(Math.random() * board.length))
+  setBombLocation(Math.floor(Math.random() * board.length))
+}
 ```
+
 Finally, let's style the button a bit.
-We should add a className to the div if we want to center the button.  Here we can just use text-align.
+We should add a className to the div if we want to center the button. Here we can just use text-align.
+
 ```css
 .button-section {
   text-align: center;
@@ -378,8 +400,11 @@ We should add a className to the div if we want to center the button.  Here we c
   font-size: 1.5rem;
 }
 ```
+
 ## User story #5 complete!
+
 in README:
+
 - branch: game-reset
 - added a button at the bottom of the page
 - added handleReset onClick
