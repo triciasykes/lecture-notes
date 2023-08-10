@@ -100,11 +100,11 @@ p class_example.get_actor
 ```
 
 #### Initializer
-Setter methods are very useful, but in this example when we instantiate the class (.new) there is no title nor actor. There is a special kind of setter method that is called by the `.new` method.  It is called the *** initializer ***
+Setter methods are very useful, but in this example when we instantiate the class (.new) there is no title nor actor.  There is actually a special kind of setter method that is called by the `.new` method.  It is called the *** initializer ***  
 
 ```ruby
 class Netflix
-  def initializer(title, actor)
+  def initialize(title, actor)
     @title = title
     @actor = actor
   end
@@ -127,7 +127,7 @@ p class_example.get_actor
 the initialize method is acting as the initial setter and there are getters to return info. Now that the initialize is handling the creation of the instance variables, we can use setter methods to modify the values.
 ```ruby
 class Netflix
-  def initializer(title, actor)
+  def initialize(title, actor)
     @title = title
     @actor = actor
     @watched = false
@@ -167,7 +167,7 @@ Adding `attr_accessor` allows the removal of some of the getter and setter metho
 class Netflix
   attr_accessor :title, :actor, :watched
   
-  def initializer(title, actor)
+  def initialize(title, actor)
     @title = title
     @actor = actor
     @watched = false
