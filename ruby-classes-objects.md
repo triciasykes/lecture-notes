@@ -11,7 +11,7 @@ We interact with an instance of a class. There are of course built-in classes in
 To define a class we use the keyword `class`.  Remember class names always use PascalCase. The scope of the class is defined by the keyword end.
 
 ```ruby
-class StreamingService
+class StreamingService # have class choose service, ie AppleTv, Hulu, Max, Netflix, etc. Type that instead of 'StreamingService'
 end
 ```
 If we run this file, we will get nothing.  It's a class - but if we instantiate a class by typing
