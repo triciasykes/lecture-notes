@@ -48,8 +48,8 @@ To prevent this from happening, developers will ask users of their API to regist
 
 ```javascript
 // File - src/mockNasa.js
-// let nasaData = .....
-// export default nasaData
+// let mockNasa = .....
+// export default mockNasa
 // beautify or prettier
 
 import React, { useState } from "react"
@@ -93,20 +93,19 @@ This seems like a really great place for us to place our fetch since we want to 
 - Start with adding it directly to the URL
 - [Hiding API Keys](https://www.pluralsight.com/guides/hiding-secret-keys-in-create-react-app)
 - Create an .env file and add it to .gitignore
-- add `gem "dotenv-rails"` to Gemfile!
 - REACT_APP_API_KEY = "key here"
 - Update fetch call
 - ** Will need to restart server **
 
 ```javascript
 // First - Add the key directly to the URL.
-
+const nasaFetch =() =>
   fetch("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1500&api_key=long-string-of-characters-here")
   .then(response => response.json())
-  .then(payload => {
+  .then(payload =>
     console.log(payload)
-    this.setState({nasa: payload.photos, pic: payload.photos[0].img_src})
-  })
+    setNasaData(payload)
+  )
   .catch(error => console.log(error))
 }
 ```
