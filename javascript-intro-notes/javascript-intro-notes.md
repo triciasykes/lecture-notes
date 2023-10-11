@@ -20,9 +20,9 @@ What do we know about JavaScript?
 
 Technically, JavaScript is
 
-- dynamically-typed - data types can change while being used
+- dynamically-typed - don't have to explicitly state the datatype during variable declarations. data types can change while beingprogram is used
 - interpreted language - read by the browser (may vary on different browsers)
-- scripting language - written for a run time environment and it interpreted and executed one line at a time.
+- scripting language - it is interpreted at runtime rather than ccompiled, and executed one line at a time. does not compile the code into machine code before executing.
 
 ### Data Types
 
