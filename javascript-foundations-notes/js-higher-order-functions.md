@@ -74,9 +74,8 @@ A higher order function is a function that takes a function as an argument
 - more efficient than for loops
 - but used in very specific circumstances
 
-While there are many different higher order functions, we are going to go through three types that you'll use frequently:
+While there are many different higher order functions, we are going to go through two types that you'll use frequently:
 
-- .forEach
 - .map
 - .filter
 
@@ -89,26 +88,23 @@ Let's make two arrays that we can use throughout lecture today.
 
 `const numsArray = [5, 8, 15, 36, 42]`
 
-## For Each
+## Map
 
-- will execute some action ONCE PER ITEM in an array it is attached to
+- Map iterates over each element in an array and returns a NEW ARRAY THAT HAS THE SAME LENGTH.
+- This means we must assign our map to a new variable!
+
+Map is great for transforming or displaying each of the values in an array.
+
 - all HOFs take anonymous functions as arguments (function that is not defined or set to a variable)
 
 ```javascript
-showArray.forEach(() => {
-  console.log("Hey Bravo")
+const result = showArray.map(() => {
+  return "Hey Hotel"
 })
+console.log(result)
 ```
 
-<!--
-Hey Bravo
-Hey Bravo
-Hey Bravo
-Hey Bravo
-Hey Bravo
- -->
-
-Why did it print Hey Bravo 5 times? for every iteration, we told it to console.log "Hey Bravo", so we got output of 5 Hey bravos
+<!-- [ 'Hey Hotel', 'Hey Hotel', 'Hey Hotel', 'Hey Hotel' ] -->
 
 Here is the fun and also somewhat confusing part. The ANONYMOUS FUNCTION ALSO TAKES AN ARGUMENT
 
@@ -120,21 +116,20 @@ The required argument is "value"
 If we rewrite the code above adding the value argument
 
 ```javascript
-showArray.forEach((value) => {
-  console.log(`You like the show ${value}`)
+const result = showArray.map((value) => {
+  return `You like the show ${value}`
 })
+console.log(result)
 ```
 
-<!--
-You like the show Last of Us
-You like the show Succession
-You like the show Poker Face
-You like the show Rick and Morty
-You like the show Ozark
--->
+<!-- <[
+  "You like the show Handmaid's Tale",
+  'You like the show Euphoria',
+  'You like the show The Last of Us',
+  'You like the show Killing Eve'
+] -->
 
 Unlike a for loop, we cannot tell it where to start and stop - it runs the whole array.
-Notice how easy it is to access the values in an array using forEach.
 
 But wait there's more
 
@@ -144,38 +139,36 @@ The anonymous function can also take a second argument "index".
 - this gives us access to the INTEGER that represents the value's location in the array
 
 ```javascript
-showArray.forEach((value, index) => {
-  console.log(`You like the show ${value}. It's index is ${index}.`)
+const result = showArray.map((value, index) => {
+  return `You like the show ${value}. It's index is ${index}.`
 })
+console.log(result)
 ```
 
-<!--
-You like the show Last of Us. It's index is 0.
-You like the show Succession. It's index is 1.
-You like the show Poker Face. It's index is 2.
-You like the show Rick and Morty. It's index is 3.
-You like the show Ozark. It's index is 4.
--->
+<!-- [
+  "You like the show Handmaid's Tale. It's index is 0.",
+  "You like the show Euphoria. It's index is 1.",
+  "You like the show The Last of Us. It's index is 2.",
+  "You like the show Killing Eve. It's index is 3."
+] -->
 
 It can take a THIRD argument - "array"
 
 - the original array that you're calling the HOF on. (in our case 'showArray')
 
 ```javascript
-showArray.forEach((value, index, array) => {
-  console.log(
-    `You like the show ${value}. It's index is ${index} in the array that contains ${array} .`
-  )
+const result = showArray.map((value, index, array) => {
+  return `You like the show ${value}. It's index is ${index} in the array that contains ${array} .`
 })
+console.log(result)
 ```
 
-<!--
-You like the show Last of Us. It's index is 0 in the array that contains Last of Us,Succession,Poker Face,Rick and Morty,Ozark .
-You like the show Succession. It's index is 1 in the array that contains Last of Us,Succession,Poker Face,Rick and Morty,Ozark .
-You like the show Poker Face. It's index is 2 in the array that contains Last of Us,Succession,Poker Face,Rick and Morty,Ozark .
-You like the show Rick and Morty. It's index is 3 in the array that contains Last of Us,Succession,Poker Face,Rick and Morty,Ozark .
-You like the show Ozark. It's index is 4 in the array that contains Last of Us,Succession,Poker Face,Rick and Morty,Ozark .
- -->
+<!-- [
+  "You like the show Handmaid's Tale. It's index is 0 in the array that contains Handmaid's Tale,Euphoria,The Last of Us,Killing Eve .",
+  "You like the show Euphoria. It's index is 1 in the array that contains Handmaid's Tale,Euphoria,The Last of Us,Killing Eve .",
+  "You like the show The Last of Us. It's index is 2 in the array that contains Handmaid's Tale,Euphoria,The Last of Us,Killing Eve .",
+  "You like the show Killing Eve. It's index is 3 in the array that contains Handmaid's Tale,Euphoria,The Last of Us,Killing Eve ."
+] -->
 
 REMEMBER THIS: there are THREE BASIC PARAMETERS IN HOFS
 
@@ -185,40 +178,37 @@ REMEMBER THIS: there are THREE BASIC PARAMETERS IN HOFS
   These names are conventions => they can be named anything, what matters is their position
 
 ```javascript
-numsArray.forEach((value, index, array) => {
-  console.log("value:", value)
-  console.log("index:", index)
-  console.log("array:", array)
+let logs = numsArray.map((value, index, array) => {
+  return `The value is ${value}, the index is ${index}, the array is ${array}`
 })
+console.log(logs)
 ```
+
+<!-- [
+  'The value is 5, the index is 0, the array is 5,8,15,36,42',
+  'The value is 8, the index is 1, the array is 5,8,15,36,42',
+  'The value is 15, the index is 2, the array is 5,8,15,36,42',
+  'The value is 36, the index is 3, the array is 5,8,15,36,42',
+  'The value is 42, the index is 4, the array is 5,8,15,36,42'
+] -->
 
 The order of parameters will ALWAYS be value, index, array but they can be called anything: they are placeholders
 
 ```javascript
-numsArray.forEach((turtle, hippo, sloth) => {
-  console.log("value:", turtle)
-  console.log("index:", hippo)
-  console.log("array:", sloth)
+let logs = numsArray.map((hippo, turtle, lemur) => {
+  return `The value is ${hippo}, the index is ${turtle}, the array is ${lemur}`
 })
+console.log(logs)
 ```
 
-forEach doesn't return anything. If you add a return you will get undefined.
-
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
-
-FROM MDN: There is no way to stop or break a forEach() loop other than by throwing an exception. If you need such behavior, the forEach() method is the wrong tool.
-
-- Again, there is no return
-- This is a generic HOF, only use if another tool won't get the job done.
-
-## Map
-
-Similar to forEach, but in most cases more useful
-
-- Map iterates over each element in an array and returns a NEW ARRAY THAT HAS THE SAME LENGTH.
-- This means we must assign our map to a new variable!
-
-Map is great for transforming or displaying each of the values in an array.
+<!--
+[
+  'The value is 5, the index is 0, the array is 5,8,15,36,42',
+  'The value is 8, the index is 1, the array is 5,8,15,36,42',
+  'The value is 15, the index is 2, the array is 5,8,15,36,42',
+  'The value is 36, the index is 3, the array is 5,8,15,36,42',
+  'The value is 42, the index is 4, the array is 5,8,15,36,42'
+] -->
 
 ```javascript
 const threesArray = [1, 2, 3, 4, 5]
@@ -226,10 +216,12 @@ const threesArray = [1, 2, 3, 4, 5]
 const multiplyBy3 = threesArray.map((value) => {
   return value * 3
 })
-```
-
 console.log(multiplyBy3)
 console.log(threesArray)
+```
+
+<!-- [ 3, 6, 9, 12, 15 ]
+[ 1, 2, 3, 4, 5 ] -->
 
 - When using ONLY ONE PARAM IN HOF, you do not need parentheses
 - Recognize that you are not console.logging a function. multiplyBy3 is a variable.
@@ -343,20 +335,3 @@ console.log(onlyOdds(mixedDataArray))
 ## Other Higher Order Functions
 
 Some other higher order functions to possibly explore in your own time are sort and reduce.
-
-<!-- Difference between .forEach and .map: -->
-
-<!--
-```javascript
-const myArray = [3, 4, 5, 6]
-
-const forEachArray = myArray.forEach(value => value * 2)
-console.log("******", forEachArray) // undefined
-```
-
-We will need to console log instead if we need to see what is happening:
-
-```javascript
-const forEachArray = myArray.forEach(value => console.log("^^", value * 2))
-console.log(forEachArray)
-``` -->
