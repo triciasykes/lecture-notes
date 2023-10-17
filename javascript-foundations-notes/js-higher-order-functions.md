@@ -5,7 +5,7 @@
 Ensure you are in the cohort-lecture -examples repo
 Ensure your local is up to date and there are no stale branches
 Create a new branch
-Create s Javascript file with the naming convention language-topic.js
+Create a Javascript file with the naming convention javascript-higher-order-functions.js
 Run the file with node
 
 ## Lecture
