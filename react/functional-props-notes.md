@@ -1,6 +1,6 @@
 # Functional Props Lecture Notes
 
-We discussed React Props yeterday and we learned that we can send props downstream from Parent component to Child component. But what do we do when we need to send data from Child to Parent?
+We discussed React Props yeterday and we learned that we can send props downstream from main component to nested component. But what do we do when we need to send data from nested to main?
 This is where **functional props** come in.
 
 In my terminal I'm in the bravo-lecture-notes repo on the main branch.
