@@ -4,7 +4,7 @@ Today we are going to recreate the Treasure Hunt game you all made in Jumpstart 
 
 ## Setup
 
-- Github classroom project link: https://classroom.github.com/a/yi7piHbY
+- Github classroom project link: https://classroom.github.com/a/fLZerdFY
 - clone repo
 - cd into repo
 - $ code .
