@@ -133,6 +133,23 @@ const Show = (props) => {
 }
 ```
 
+We know we need a function to handle the button click.
+
+```javascript
+const Show = (props) => {
+  const handleClick = () => {
+    console.log("click")
+  }
+  return (
+    <>
+      <h4>{props.show.title}</h4>
+      {props.show.liked && <h4>💙</h4>}
+      <button onClick={handleClick}>Like!</button>
+    </>
+  )
+}
+```
+
 ### Destructuring props
 
 show how to destructure within the function, then as params
@@ -168,18 +185,21 @@ _`src/App.js`_
 ```
 
 3. Now I can add an onClick in the button that will trigger the likeShow function
-   _`src/components/MenuItem.js`_
+   _`src/components/Show.js`_
 
 ```javascript
   const Show = (props)=> {
     console.log('props: ', props)
     const { show, likeShow } = props
 
+    const handleClick = () => {
+      likeShow()
+    }
     return(
       <>
        <h4>{props.show.name}</4>
        {props.show.liked && <h4>💙</h4>}
-       <button onClick={props.likeShow}>Like!</button>
+       <button onClick={handleClick}>Like!</button>
       </>
     )
   }
@@ -324,5 +344,28 @@ const likeShow = (selectedShow) => {
   showList[selectedShow].liked = true
   document.getElementById(`button-${selectedShow}`).style.display = "none"
   setShowList([...showList])
+}
+```
+
+Here's the css:
+
+```css
+.card {
+  border: 2px solid black;
+  height: 300px;
+  width: 250px;
+  background-color: red;
+  font-size: large;
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+h1 {
+  text-align: center;
 }
 ```
