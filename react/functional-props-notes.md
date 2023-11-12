@@ -3,7 +3,7 @@
 We discussed React Props yeterday and we learned that we can send props downstream from main component to nested component. But what do we do when we need to send data from nested to main?
 This is where **functional props** come in.
 
-In my terminal I'm in the bravo-lecture-notes repo on the main branch.
+In my terminal I'm in the hotel-lecture-notes repo on the main branch.
 
 - `$ git pull origin main`
 - `$ git branch`
@@ -34,10 +34,10 @@ const App = () => {
     <>
       <h1>Netflix Clone</h1>
       <ul>
-        <li>show1</li>
-        <li>show2</li>
-        <li>show3</li>
-        <li>show4</li>
+        <li>show</li>
+        <li>show</li>
+        <li>show</li>
+        <li>show</li>
       </ul>
     </>
   )
@@ -74,10 +74,10 @@ const App = () => {
     <>
       <h1>Netflix Clone</h1>
       <ul>
-        <li>show1</li>
-        <li>show2</li>
-        <li>show3</li>
-        <li>show4</li>
+        <li>show</li>
+        <li>show</li>
+        <li>show</li>
+        <li>show</li>
       </ul>
     </>
   )
@@ -133,28 +133,45 @@ const Show = (props) => {
 }
 ```
 
+We know we need a function to handle the button click.
+
+```javascript
+const Show = (props) => {
+  const handleClick = () => {
+    console.log("click")
+  }
+  return (
+    <>
+      <h4>{props.show.title}</h4>
+      {props.show.liked && <h4>💙</h4>}
+      <button onClick={handleClick}>Like!</button>
+    </>
+  )
+}
+```
+
 ### Destructuring props
 
 show how to destructure within the function, then as params
 
 ## The Problem
 
-We want to click on the button and have our selection marked as ordered. Which means we need to update the state object for that item to `liked: true`. However, state data is managed by App.js BUT the button and click action by necessity are handled by the Show component. This means we need to send info of what is being liked "up the river" to App.js where the state data lives. How do we do this - with Functional Props!
+We want to click on the button and have our selection marked as liked. Which means we need to update the state object for that item to `liked: true`. However, state data is managed by App.js BUT the button and click action by necessity are handled by the Show component. This means we need to send info of what is being liked "up the river" to App.js where the state data lives. How do we do this - with Functional Props!
 
 ## The Steps:
 
-1. Create a function that will have an argument that can be bassed down to the Show component and will be called when the button is clicked.
+1. Create a function that can be passed down to the Show component and will be called when the button is clicked.
 
 _`src/App.js`_
 below state add:
 
 ```javascript
-const likeShow = (selectedShow) => {
+const likeShow = () => {
   console.log("clicked!")
 }
 ```
 
-2. Then we pass this method in our component call, along with the menuItems. We will want to know which item is ordered and its state updated. For this we will pass the index.
+2. Then we pass this method in our component call, along with the showData.
 
 _`src/App.js`_
 
@@ -162,41 +179,68 @@ _`src/App.js`_
 ;<h1>Netflix Clone</h1>
 {
   showList.map((show, index) => {
-    return <Show showData={show} likeShow={likeShow} index={index} />
+    return <Show showData={show} likeShow={likeShow} key={index} />
   })
 }
 ```
 
-3. Now I can add an onClick in the button that will trigger the likesShow function
-   _`src/components/MenuItem.js`_
+3. Now I can add an onClick in the button that will trigger the likeShow function
+   _`src/components/Show.js`_
 
 ```javascript
   const Show = (props)=> {
     console.log('props: ', props)
     const { show, likeShow } = props
 
+    const handleClick = () => {
+      likeShow()
+    }
     return(
       <>
        <h4>{props.show.name}</4>
        {props.show.liked && <h4>💙</h4>}
-       <button onClick={props.likeShow}>Like!</button>
+       <button onClick={handleClick}>Like!</button>
       </>
     )
   }
 ```
 
-If we look back at App.js we can see `likeShow` takes an argument. So what can we use to specify which item was selected? The index.
-
-_`src/components/MenuItem.js`_
-**rewrite onClick method**
-`<button onClick={props.show(props.index)}>Like!</button>`
-
-However, if we look at the console - we see all these clicks and I haven't done any clicking. This current setup creates an Immediately Invoked Function -> it won't wait for the actual click and will continue to invoke itself. This can lead to a Stack overflow - ( program tries to execute more actions than it has the memory to perform.)
+However, if we look at the console - we see all these clicks and I haven't done any clicking. This current setup creates an Immediately Invoked Function also known as an IIFE-> it won't wait for the actual click it will run as soon as it's defined, so basicaly it will continue to invoke itself. This can lead to a Stack overflow - ( program tries to execute more actions than it has the memory to perform.)
 
 But there is a solution - we can add an anonymous fxn INSIDE the onClick.
-_`src/components/MenuItem.js`_
+_`src/components/Show.js`_
 **rewrite onClick method**
-`<button onClick={()=> {props.likeShow(props.index)}}>Like!</button>`
+`<button onClick={()=> {props.likeShow()}}>Like!</button>`
+
+Ok, so we have a function being passed down to the nested component. We want our function to execute an action (change the value of 'liked' to true) on just the show that is liked. We can do this by passing an argument into the fxn. So let's create a parameter called 'selectedShow' and add that to our likeShow fxn.
+
+_`src/App.js`_
+below state add:
+
+```javascript
+const likeShow = (selectedShow) => {
+  console.log("selected show: ", selectedShow)
+}
+```
+
+So now in App.js `likeShow` takes an argument. So what can we use to specify which item was selected? The index. so let's pass the index as index to Show.js
+
+_`src/App.js`_
+
+```javascript
+;<h1>Netflix Clone</h1>
+{
+  showList.map((show, index) => {
+    return (
+      <Show showData={show} likeShow={likeShow} key={index} index={index} />
+    )
+  })
+}
+```
+
+_`src/components/Show.js`_
+**rewrite onClick method**
+`<button onClick={props.show(props.index)}>Like!</button>`
 
 4.  Now back in App.js we can actually access the index from the Show component.
     Then we just need to update the value of the liked property and call setShowList. We can use the spread operator to show the updated state. The spread operator says copy all or part of an existing array or object into another array or object.
@@ -238,7 +282,7 @@ const App = () => {
       liked: false,
     },
   ])
-  return(
+
   const likeShow = (selectedShow) => {
     console.log("show: ", showList[selectedShow])
     showList[selectedShow].liked = true
@@ -288,8 +332,40 @@ const App = () => {
   onClick={() => {
     likes(index)
   }}
-  className={`button-${index}`}
+  id={`button-${index}`}
 >
   Like!
 </button>
+```
+
+```javascript
+const likeShow = (selectedShow) => {
+  console.log("selectedShow: ", showList[selectedShow])
+  showList[selectedShow].liked = true
+  document.getElementById(`button-${selectedShow}`).style.display = "none"
+  setShowList([...showList])
+}
+```
+
+Here's the css:
+
+```css
+.card {
+  border: 2px solid black;
+  height: 300px;
+  width: 250px;
+  background-color: red;
+  font-size: large;
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+h1 {
+  text-align: center;
+}
 ```
