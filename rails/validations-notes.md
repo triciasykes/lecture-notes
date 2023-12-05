@@ -15,7 +15,7 @@ When creating the database, we want to be thoughtful of the structure as well as
 Validations ensure that the data that gets passed in is what we are expecting.
 
 - $ cd validations
-- $ cd rails db:create
+- $ rails db:create
 
 # Adding RSpec
 

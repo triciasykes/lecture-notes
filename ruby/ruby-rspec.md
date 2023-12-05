@@ -7,18 +7,11 @@
 - Create a new branch
 - Create a folder called `ruby-rspec`
 - Create a Ruby file called `book.rb`
-- Create a Ruby spec file called `rspec_spec.rb`
+- Create a Ruby spec file called `book_spec.rb`
 
-- Run tests with `rspec rspec_spec.rb`
+- Run tests with `rspec book_spec.rb`
 
 ## Lecture
-
-For this lecture I'm going to need a directory `ruby-rspec` and 2 files `touch book.rb` `touch book_spec.rb`. One is a ruby file, the other is a spec file or specification file. The spec file works to communicate to the computer what I'm looking to build. It also tells other developers and clients what I'm supposed to be building and what the expectations are of what's built out. The spec file is going to define what I expect from my book.rb file and if my book doesn't match the specifications, then it's not a good instance of a book.
-
-RSpec is a Domain Specific Language which is a language that has been specialized for a particular task. In this case RSpec is specialized for testing Ruby code.
-
-- Google: https://rubygems.org/gems/rspec/versions/3.4.0
-- $`gem install rspec`
 
 Who remembers what TDD stands for: test-driven development, is a developer philosophy of writing tests(or specs, short for specifications) first and then creating the code that will make the tests pass. What does `red-green-refactor` mean? Write our tests first and see them fail(red), then write the code to make it pass(green), then refactor the code to something simpler or more effective while checking it still passes.
 Another phrase you may come across in testing is `Arrange Act Assert`: setting up a test environment, making a change in that environment, asserting a result on the data from the change.
@@ -27,23 +20,44 @@ Another phrase you may come across in testing is `Arrange Act Assert`: setting u
 
 Today this example will involve creating a class for Book. Book is going to be a template from which we can create many instances of books. The Book class will have both data and behavior. A book can have a title, and author, and pages, which are all data. We can also read a book which will change the current page we're on. Since this is an action (or behavior) we will call them methods.
 
+For this lecture I'm going to need a directory `mkdir ruby-rspec` and 2 files `touch book.rb` `touch book_spec.rb`. One is a ruby file, the other is a spec file or specification file. The spec file works to communicate to the computer what I'm looking to build. It also tells other developers and clients what I'm supposed to be building and what the expectations are of what's built out. The spec file is going to define what I expect from my book.rb file and if my book doesn't match the specifications, then it shouldn't pass.
+
+RSpec is a Domain Specific Language which is a language that has been specialized for a particular task. In this case RSpec is specialized for testing Ruby code.
+
+- Google: https://rubygems.org/gems/rspec/versions/3.4.0
+- $`gem install rspec`
+
 There are a couple of things we will need to include in our spec file in order for our tests to run. Require is a ruby method that will give us access to all the functionality in rspec. Require_relative will give us access to everything in book.rb
 
-- in rspec_spec.rb:
+- in book_spec.rb:
   `require 'rspec'
-`require_relative 'rspec_book'
+`require_relative 'book.rb'
 - Add `describe` block with a do/end block
 - add `it` block with do/end block
 - Add expect statement that will run the new method and expect the creation of a class
-- Run the test with `rspec rspec_spec.rb`
+- Run the test with `rspec book_spec.rb -f d`
 - Look at the failing test
+
+AAA - Standard philosophy for writing tests
+
+- Arrange - setup, inputs, targets
+  does it create object or special setting?
+
+- Act - focused on behavior, main thing to be tested
+  calling function or method, login, interactions
+
+- Assert - outcomes
+  verify goodness or badness of responses
 
 ```ruby
 require 'rspec'
 require_relative 'rspec_book'
 
 describe 'Book' do
-  it 'when a book is instantiated' do
+  it 'should exist' do
+  # using {} because the outcome is a behavior
+  # assert is expect
+  # act is instantiating the book
     expect{ Book.new }.to_not raise_error
   end
 end
@@ -67,13 +81,16 @@ Now we want to be able to have our Book class have some static data
 - Call a setter method to give Book a title
 - Expect the outcome
 - This expect statement has parentheses because the outcome is data, curly braces are used when the outcome is behavior
-- Run the test `rspec rspec_spec.rb`
+- Run the test `rspec book_spec.rb`
 - look at the failing test
 
 ```ruby
 it 'has a title' do
+  # Arrange
   my_book = Book.new
+  # Act
   my_book.title = 'Brave New World'
+  # Assert
   expect(my_book.title).to be_a String
   expect(my_book.title).to eq 'Brave New World'
 end
@@ -104,11 +121,11 @@ if there is no author we can have a default value of anonymous
 - Create an instance of Book
 - Book should have default author of anonymous
 - Expect the outcome
-- run `rspec rspec_spec.rb`
+- run `rspec book_spec.rb`
 - Look at failing test
 
 ```ruby
-# rspec_spec.rb
+# book_spec.rb
  it 'has an author' do
     my_book = Book.new
     expect(my_book.author).to eq 'anonymous'
@@ -139,7 +156,7 @@ A new instance of a book will always start with the page at 1
 - Create instance of Book
 - Expect the outcome
 - This expect has parentheses becuase the outcome is data
-- run `rspec_spec.rb`
+- run `book_spec.rb`
 - Look at failing test
 
 ```ruby
@@ -175,11 +192,11 @@ We can add a method that will move the page number forward. We will be looking a
 - Create an instance of Book
 - expect the outcome
 - This expect statement has curly braces because the outcome is a behavior
-- `rspec rspec_spec.rb`
+- `rspec book_spec.rb`
 - Look at failing test
 
 ```ruby
-# rspec_spec.rb
+# book_spec.rb
 it 'can read pages' do
   expect{ my_book.read 5}.to change{ my_book.page }.from(1).to(6)
 end
@@ -208,18 +225,18 @@ end
 
 Let's look at creating a collection of books. We can make another class that will handle our collection.
 
-- create another file called `rspec_library.rb`
+- create another file called `library.rb`
 - Need to import into the testing file
 - Create describe block
 - add `it` block
-- Expect the outcome using {} because the outcome is a behavior -`rspec rspec_spec.rb`
+- Expect the outcome using {} because the outcome is a behavior -`rspec book_spec.rb`
 - Look at failing test
 
 ```ruby
-#rspec_spec.rb
+#book_spec.rb
 require 'rspec'
-require_relative 'rspec_book.rb'
-require_relative 'rspec_libary.rb'
+require_relative 'book.rb'
+require_relative 'libary.rb'
 
 # ...the previous code ...
 describe 'Library' do
@@ -237,15 +254,24 @@ We can create a collection that is of the data type Array
 - Add `it` statement
 - create instance of Library
 - expect the outcome using parenthese because the outcome is data
-- Run the tests with `rspec rspec_spec.rb`
+- Run the tests with `rspec book_spec.rb`
 - Look at the failing test
 
 ```ruby
-# rspec_spec.rb
+# book_spec.rb
 
 it 'has an array of books' do
   my_library = Library.new
   expect(my_library.book_collection).to be_a Array
+end
+
+
+#and the code that makes it pass
+class Library
+  attr_accessor :book_collection
+  def initialize
+    @book_collection = []
+  end
 end
 ```
 
@@ -257,11 +283,11 @@ Now we can add books to our books array
 - create instance of Library
 - create 2-3 instances of Book
 - Expect the outcome using parentheses since the outcome is data
-- `rspec rspec_spec.rb`
+- `rspec book_spec.rb`
 - Look at the failing test
 
 ```ruby
-# rspec_spec.rb
+# book_spec.rb
 # add this to the current it statement
 it 'has an array of books' do
   my_library = Library.new
@@ -285,7 +311,7 @@ class Library
     @book_collection = []
   end
 
-  def read_books book
+  def add_books book
     @book_collection << book
   end
 end

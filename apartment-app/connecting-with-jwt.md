@@ -1,6 +1,6 @@
 # Apartment App Connecting Authentication with JWT
 
-As of right now, our frontend application is reliant on mock data to display information, however we do want this application to be connected to a database. In Cat Tinder, we explored fetch which allowed us to make a request to our API. We are once again going to utilize fetch to consume our data, however, this time we also need to be gathering our token when a user is signed in which will be the main focus of this lecture.
+As of right now, our frontend application relies on mock data to display information, however we want this application to be connected to a database. In Cat Tinder, we explored fetch which allowed us to make a request to our API. We are once again going to utilize fetch to consume our data, however, this time we also need to be gathering our token when a user is signed in which will be the main focus of this lecture.
 
 ### Connecting React and Rails API
 

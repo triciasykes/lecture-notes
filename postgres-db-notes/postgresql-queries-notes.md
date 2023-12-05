@@ -18,8 +18,9 @@ end
 the class defines the structure of data and then I can create any number of instances with
 
 ```ruby
-Student.new('Felix', 'Bravo')
-Student.new('Evelyn', 'Bravo')
+
+Student.new('Joseph', 'Hotel')
+Student.new('Megan', 'Echo')
 ```
 
 I can make as many instances as I need.

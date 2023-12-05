@@ -1,8 +1,8 @@
 # Apartment App
 
-This week we will be building another decoupled application called Apartment App. We will once again be using Trello for project management, but this time we will be working in teams of 3. There will be a little different dynamic when it comes to our project management. Each team will be responsible for communicating and determining who is working on what tasks. While it is up to you on how you want to work in your teams, many groups find that mobbing is helpful to get through some of the tougher tasks. The key is to communicate blockers and progress with your team.
+This week we will be building another decoupled application called Apartment App. We will again be using Trello for project management, but this time we will be working in teams of 3. There will be a little different dynamic when it comes to our project management. Each team will be responsible for communicating and determining who is working on what tasks. While it is up to you on how you want to work in your teams, many groups find that mobbing is helpful to get through some of the tougher tasks. The key is to communicate blockers and progress with your team.
 
-The instructors will be around to help wherever and whenever possible and will also be reviewing PR's as they come through. We will periodically check on your Trello board and will ask questions if something seems out of place. Like Cat Tinder, we will start with the backend, add the front end later, and then connect them.
+Like Cat Tinder, we will start with the backend, add the front end later, and then connect them.
 
 The majority of this lecture will be adding configurations - and there are a lot of them. It's a lengthy process, but everything is lined out in the syllabus. We'll be introducing a few new concepts that are very important to understand. I strongly encourage you not to code along. Instead, work on grasping what each step is doing.
 

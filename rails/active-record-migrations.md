@@ -48,11 +48,11 @@ Let's head on over to our syllabus and head to Active Record Migrations
     - $ rails c
 
 ```ruby
-    > BandMember.create name: "Elyse", instrument: "Keyboard"
+    > BandMember.create name: "Trish", instrument: "Keyboard"
     > BandMember.create name: "Sarah", instrument: "Cowbell"
-    > BandMember.create name: "Austin", instrument: "Guitar"
-    > BandMember.create name: "Samir", instrument: "Vocalist"
-    > BandMember.create name: "Zane", instrument: "DJ"
+    > BandMember.create name: "Kevin", instrument: "Guitar"
+    > BandMember.create name: "Ant", instrument: "Vocalist"
+    > BandMember.create name: "Joseph", instrument: "Drums"
 ```
 
     - To see all of the members:
