@@ -54,10 +54,10 @@ To see all the routes it created we can run a simple informational command
 Since we have our model setup, our controller created, and the routes already written - let's add some data
 
 - `$ rails c`
+- `$ student.create(name:'Andre', cohort:'Hotel')`
 - `$ student.create(name:'Bao', cohort:'Echo')`
 - `$ student.create(name:'Nikki', cohort:'Bravo')`
 - `$ student.create(name:'Josh', cohort:'Alpha')`
-- `$ student.create(name:'Monica', cohort:'Hotel')`
 - `$ Student.all`
 
 ### RESTful Routes

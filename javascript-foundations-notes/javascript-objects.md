@@ -20,7 +20,7 @@ In JS we can store data in key-value pairs. Let's break it down into its parts:
 
 - object syntax, collections of key value pairs:-
   `{ key: "value" } `
-  `{}` - define the object the same way [] define an array
+  `{}` - defines the object the same way [] defines an array
   `value` - any data type recognized by JS
   `key` - symbol, unique identifier, primitive data type used in objects
 
