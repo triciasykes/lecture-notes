@@ -244,8 +244,7 @@ describe("<CatShow />", () => {
 })
 ```
 
-We get an error.  
- `TestingLibraryElementError: Unable to find an element with the text: Talking to the dogs walking by. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.`
+We get an error. `TestingLibraryElementError: Unable to find an element with the text: Talking to the dogs walking by. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.`
 
 Let's checkout the documentation. We are trying to match a string.  
  https://testing-library.com/docs/queries/about/#textmatch-examples

@@ -38,6 +38,10 @@ https://reactstrap.github.io/?path=/story/home-installation--page
 Copy this 3x and adjust the data to fit our structure
 Add Submit Button - pull from reactstrap same form
 
+```javascript
+<Button>Submit</Button>
+```
+
 ## Create State
 
 ```javascript

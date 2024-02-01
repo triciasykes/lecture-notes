@@ -1,12 +1,12 @@
 # Apartment App
 
-This week we will be building another decoupled application called Apartment App. We will again be using Trello for project management, but this time we will be working in teams of 3. There will be a little different dynamic when it comes to our project management. Each team will be responsible for communicating and determining who is working on what tasks. While it is up to you on how you want to work in your teams, many groups find that mobbing is helpful to get through some of the tougher tasks. The key is to communicate blockers and progress with your team.
+<!--This week we will be building another decoupled application called Apartment App. We will again be using Trello for project management, but this time we will be working in teams of 3. There will be a little different dynamic when it comes to our project management. Each team will be responsible for communicating and determining who is working on what tasks. While it is up to you on how you want to work in your teams, many groups find that mobbing is helpful to get through some of the tougher tasks. The key is to communicate blockers and progress with your team.-->
 
-Like Cat Tinder, we will start with the backend, add the front end later, and then connect them.
+<!-- Like Cat Tinder, we will start with the backend, add the front end later, and then connect them. -->
 
 The majority of this lecture will be adding configurations - and there are a lot of them. It's a lengthy process, but everything is lined out in the syllabus. We'll be introducing a few new concepts that are very important to understand. I strongly encourage you not to code along. Instead, work on grasping what each step is doing.
 
-### Setup
+<!-- ### Setup
 
 - $ `rails new apartment-app-backend -d postgresql -T`
 - $ `cd apartment-app-backend`
@@ -22,21 +22,21 @@ The majority of this lecture will be adding configurations - and there are a lot
 - `git commit -m ':tada: initial commit'`
 - `git push origin main`
 - Ask for branch protection
-- $ `rails s`
+- $ `rails s` -->
 
 ## Authorization v Authentication
 
-Most web applications we interact with require you to login for certain features on their website. This brings us to Authorization and Authentication.
-These are two independent yet interconnected concepts
+Most web applications we interact with require you to login for certain features on their website. This brings us to Authorization and Authentication.These are two independent yet interconnected concepts
 
-- Authentication allows you to provide valid credentials, i.e. username and password. Think of logging-in as authenticating the user.
+- Authentication allows you to provide valid credentials, i.e. username and password. Think of logging-in as authenticating the user. Is the user who they say they are.
 - Authorization - defines what data the authenticated user can access.
 
 ## Devise
 
-- Devise is a Ruby gem. What is a gem?
-- libraries or packages of code that we can bring into our applications.
-- Devise is a very popular gem, used in many applications, which means it has a lot of community support. Go to
+- Devise is a Ruby gem.
+  - libraries or packages of code that we can bring into our applications.
+- Devise is a very popular gem, used in many applications, which means it has a lot of community support. Go to https://rubygems.org/gems/devise/versions/4.9.3?locale=en
+
 - Devise gives us the ability to create a user in our application. The user can log into an account and have special access to certain parts of your application. This brings us to two important concepts, authorization and authentication.
 
 ### Devise Install
@@ -45,8 +45,7 @@ These are two independent yet interconnected concepts
 - $ `rails generate devise:install`
 - $ `rails generate devise User`
 - $ `rails db:migrate`
-
-Show the class the backend files related to User (schema/model/etc.)
+  Note the backend files related to User (schema/model/etc.)
 
 ## Updating the backend to use JWT with Devise
 
@@ -54,7 +53,7 @@ What's great about Devise is that it can handle both authorization and authentic
 
 - So we can authenticate a user, which means it gives us login pages where a user can create an account or login to an account.
 
-Now, since we have a decoupled application, we will need to verify that a person is who they are on the backend. We also need the frontend to know that a user is logged in and is now authorized to access specific features in the application. To pass this information, we will be using JWT.
+- Since we have a decoupled application, we will need to verify that a person is who they are on the backend. We also need the frontend to know that a user is logged in and is now authorized to access specific features in the application. To pass this information, we will be using JWT.
 
 ### What is JWT and Why Use it?
 
@@ -175,7 +174,7 @@ Now you can assign the secret to a key jwt_secret_key at the bottom of this file
 `jwt_secret_key: <newly-created secret key>`
 \*\* do not use the angle brackets, nor do you need the key to be in quotes.
 
-CTRL + c will encrypt and save the file.
+**_IMPORTANT_** You need to save the crentials file and then CLOSE THE FILE - this will encrypt and save the file. Otherwise your changes will not be saved and your app will break.
 
 ### 7. Configure Devise-JWT
 
@@ -230,27 +229,30 @@ class User < ApplicationRecord
 end
 ```
 
-...and we're done! Phew! Run `rails s` to make sure you aren't getting errors.
+...and we're done! Run `rails s` to make sure you aren't getting errors.
 
-## Apartments
+## Cats
 
-Ok, we are configured. Let's think about what data we need in our app. Apartments will have a street, unit number, city, state, square footage, price, number of bedrooms, number of bathrooms, if pets are allowed, and of course, and image.
-But there is also a relationship between users and apartments, right? An apartment can only be created by a valid, logged in user and a user can create as many apartments as they want. So what would the Active Record associations be? User has_many Apartments, Apartments belongs_to User. Therefore we will need a foregn key of user_id to the belongs_to table.
+The first thing we need to do is establish the relationship between users and cats. A cat can only be created by a valid, logged in user and a user can create as many cats as they want. So what would the Active Record associations User has_many cats, cats belongs_to User.
 
-user.rb
-has_many :apartments
+**user.rb**
+has_many :cats
 
-apartment.rb
+**cat.rb**
 belongs_to :user
 
-- $ `rails g resource Apartment street:string unit:string city:string state:string square_footage:integer price:string bedrooms:integer bathrooms:float pets:string image:text user_id:integer`
-  -$ `rails db:migrate`
+Therefore we will need a foreign key of user_id to the belongs_to table. We can actually do that in the migration creation by using similar syntax, but including a particular keyword: references. Also, because we already have data in our cats database, we'll need to drop and recreate it.
+
+- $ `rails db:drop`
+- $ `rails db:create`
+- $ `rails generate migration addUserReferenceToCats user:references`
+- $ `rails db:migrate`
 
 ### Seeds
 
-User instance in the database, we need a unique username, password, and password confirmation. When this information is successfully submitted to the database, a new instance of User will be created.
+We are going to need to update our seeds because now every cat must be associated with a user. To add a User instance in the database, we need a unique username, password, and password confirmation. When this information is successfully submitted to the database, a new instance of User will be created.
 
-Seed data has to align with the relationship of our User and Apartment models. Before we have apartments, we must have users.
+Seed data has to align with the relationship of our User and Cat models. Before we have cats, we must have users.
 
 Devise provides us with some built-in validations. For example, every user in the database must have a unique email. To ensure our seeded user data is made correctly, we can use the .first_or_create Active Record method. Using the .where method, we first query for all emails that match a particular user in the database. The .where method will return an array of all matches. The .first_or_create method checks whether the first instance in the array is nil or not. If the value is nil, then no user exists. A nil value will trigger the .create method which requires password and password confirmation keys with matching password values.
 
@@ -259,44 +261,38 @@ user1 = User.where(email: "test1@example.com").first_or_create(password: "passwo
 user2 = User.where(email: "test2@example.com").first_or_create(password: "password", password_confirmation: "password")
 
 
-user1_apartments = [
+user1_cats = [
   {
-    street: "ABC Sesame Street",
-    unit: "20",
-    city: "Sesame",
-    state: "ISLE",
-    square_footage: 2000,
-    price: 15000,
-    bedrooms: 5,
-    bathrooms: 3,
-    pets: "puppets only",
-    image: "https://upload.wikimedia.org/wikipedia/commons/0/00/Sesame_Street_buildings_%28193090534%29.jpg"
+    name: 'Kevin',
+    age: 9,
+    enjoys: 'Talking to the dogs walking by the window',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Tuxedo_cat_Vladimir_124.jpg'
+  },
+  {
+    name: 'Geppetto',
+    age: 8,
+    enjoys: 'being outside in the sun',
+    image: 'https://www.publicdomainpictures.net/pictures/200000/nahled/ragdoll-cat-with-green-eyes-14766395657Vf.jpg'
   }
 ]
 
-user2_apartments = [
-  {
-      street: "Walaby Way",
-      unit: "42",
-      city: "Sydney",
-      state: "Australia",
-      square_footage: 2000,
-      price: 25000,
-      bedrooms: 3,
-      bathrooms: 2,
-      pets: "fish",
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWBSF2x6QbX697RXfV7WdOtqCxF9glLOlF_37xL7pvvea_bWK8JkWHu1llBVz8k9LmFbY&usqp=CAU"
-  }
+user2_cats = [
+    {
+      name: 'Priscilla',
+      age: 13,
+      enjoys: 'Wanting attention from all humans. Only humans',
+      image: 'https://petkeen.com/wp-content/uploads/2021/04/Blue-norwegian-forest-cat_Elisa-Putti_Shutterstock-760x507.jpg'
+    }
 ]
 
-user1_apartments.each do |apartment|
-    user1.apartments.create(apartment)
-    p "created: #{apartment}"
+user1_cats.each do |cat|
+    user1.cats.create(cat)
+    p "created: #{cat}"
 end
 
-user2_apartments.each do |apartment|
-    user2.apartments.create(apartment)
-    p "created: #{apartment}"
+user2_cats.each do |cat|
+    user2.cats.create(cat)
+    p "created: #{cat}"
 end
 ```
 
