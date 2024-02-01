@@ -1,6 +1,6 @@
-# Apartment App Connecting Authentication with JWT
+# Connecting Authentication with JWT
 
-As of right now, our frontend application relies on mock data to display information, however we want this application to be connected to a database. In Cat Tinder, we explored fetch which allowed us to make a request to our API. We are once again going to utilize fetch to consume our data, however, this time we also need to be gathering our token when a user is signed in which will be the main focus of this lecture.
+As of right now, our frontend application relies on mock data to display information, however we want this application to be connected to a database. We explored fetch which allowed us to make a request to our API. We are once again going to utilize fetch to consume our data, however, this time we also need to be gathering our token when a user is signed in which will be the main focus of this lecture.
 
 ### Connecting React and Rails API
 
@@ -8,14 +8,14 @@ When we are dealing with user credentials we do need to make sure we are thought
 
 ### Initial State Variables
 
-First we need to update App.js to remove our mock user and set our default to no user being logged in (null). We can also update our apartment array to an empty array which will later be updated in our fetch call.
+First we need to update App.js to remove our mock user and set our default to no user being logged in (null). We can also update our cats array to an empty array which will later be updated in our fetch call.
 
 **src/App.js**
 
 ```javascript
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null)
-  const [apartments, setApartments] = useState([])
+  const [cats, setCats] = useState([])
 
   return (
     // existing code ...
@@ -25,9 +25,9 @@ const App = () => {
 
 ### Collect Input Data
 
-Next we need to handle the view for a user to sign up or log in. There is a really neat React hook that can help us setup our form quickly called useRef.
+Next we need to handle the view for a user to sign up or log in. There is a really cool React hook that can help us setup our form quickly called useRef.
 
-**useRef** is a React hook that allows us to access elements from the DOM and persist those values between renders. With `useRef` we can create a reference to our sign up and log in forms then access the values entered in those form fields as needed by using the `current` property.
+**useRef** is a React Hook that allows us to access elements from the DOM and persist those values between renders. With `useRef` we can create a reference to our sign up and log in forms then access the values entered in those form fields as needed by using the `current` property.
 
 - Updating a reference doesn't trigger re-rendering, while updating the state makes the component re-render
 - The reference update is synchronous (the updated reference value is available right away), while the state update is asynchronous (the state variable is updated after re-rendering).
@@ -138,6 +138,8 @@ const login = (userInfo) => {
       return response.json()
     })
     .then((payload) => {
+      localStorage.setItem("user", JSON.stringify(payload))
+
       setCurrentUser(payload)
     })
     .catch((error) => console.log("login errors: ", error))
@@ -161,6 +163,7 @@ const signup = (userInfo) => {
       return response.json()
     })
     .then((payload) => {
+      localStorage.setItem("user", JSON.stringify(payload))
       setCurrentUser(payload)
     })
     .catch((error) => console.log("login errors: ", error))
@@ -176,6 +179,7 @@ const logout = () => {
   })
     .then((payload) => {
       localStorage.removeItem("token") // remove the token
+      localStorage.removeItem("user") // removes the user
       setCurrentUser(null)
     })
     .catch((error) => console.log("log out errors: ", error))
@@ -242,7 +246,7 @@ useEffect(() => {
   if (loggedInUser) {
     setCurrentUser(JSON.parse(loggedInUser))
   }
-  readApartments()
+  readCats()
 }, [])
 ```
 
