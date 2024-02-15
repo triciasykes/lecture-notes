@@ -63,7 +63,7 @@ syntax: `() => {}`
 - makes heavey -lifting code functionality "sweeter" to use.
 
 Today we are going to look at some of these complex concepts that are easy to implement.
-There is a log going on under the hood and we won't get into all of it.
+There is a lot going on under the hood and we won't get into all of it.
 We are specifically going to look at Higher Order Functions aka HOFs
 
 ## What is a Higher Order Fucntion?
@@ -90,10 +90,11 @@ Let's make two arrays that we can use throughout lecture today.
 
 ## Map
 
+- The .map() method allows you to run a function on each item in the array, returning a new array as the result.
 - Map iterates over each element in an array and returns a NEW ARRAY THAT HAS THE SAME LENGTH.
 - This means we must assign our map to a new variable!
 
-Map is great for transforming or displaying each of the values in an array.
+Map is great for transforming or displaying each of the values in an array. React uses ES6.
 
 - all HOFs take anonymous functions as arguments (function that is not defined or set to a variable)
 

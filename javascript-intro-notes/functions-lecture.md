@@ -1,4 +1,4 @@
-# JavaScript Functions Lecture
+it assembles# JavaScript Functions Lecture
 
 Updated: August 2023
 
@@ -23,9 +23,9 @@ Updated: August 2023
 
 ### Functions
 
-- **Functions** are reusable blocks of code that perform a specific task. Think of them as little machines. Their main job is to take in an input, do something, and produce an output. For example, think about a sandwich making machine... you give it bread, cheese, meat , it assembles everything, and then returns a sandwich.
+- **Functions** are reusable blocks of code that perform a specific task. Think of them as little machines. Their main job is to take in an input, do something, and produce an output. For example, think about a juicer - you give it fruit and or veggies, and outputs juice.
 
-There are many ways to define a function. The way we use functions at LEARN is by using the **arrow syntax**. Arrow syntax was introduced in 2015, as part of the ES6 version of JS. The prior way to define functions was by using the reserved keyword `function`. You may still see this style of definition.
+There are a few ways to define a function. The way we use functions at LEARN is by using the **arrow syntax**. Arrow syntax was introduced in 2015, as part of the ES6 version of JS. The prior way to define functions was by using the reserved keyword `function`. You may still see this style of definition.
 
 ### Anatomy
 
@@ -44,7 +44,7 @@ There are many ways to define a function. The way we use functions at LEARN is b
 Example:
 
 ```js
-const myFunction = () => {
+const functionName = () => {
   return "output"
 }
 ```
@@ -63,7 +63,7 @@ const makeCoffee = () => {
 
 ERROR: Nothing is displayed
 
-Functions don't do anything at all until we tell them run. Telling a function to run is called a **function invocation, or function call**.
+Functions don't do anything at all until we tell to. Executing or using a funciton is called `invoking/running/calling` (interchangeable.)
 
 - Write the invocation
 - Run the file `node javascript-functions.js`
@@ -116,15 +116,15 @@ myFunction(argument)
 ```
 
 ```jsx
-const makeCoffee = (coffeeType) => {
-  return `Enjoy your ${coffeeType}.`
+const sandwichMaker = (ingredient1, ingredient2) => {
+  return `Enjoy your ${ingredient1} and ${ingredient2} sandwich.`
 }
 ```
 
 - Invoke function
 
 ```jsx
-console.log(makeCoffee())
+console.log(sandwichMaker())
 ```
 
 ERROR: Undefined since the parameter is a variable without an assignment
@@ -132,10 +132,19 @@ ERROR: Undefined since the parameter is a variable without an assignment
 - The value of a parameter gets defined in the function invocation called an **argument**
 
 ```jsx
-console.log(makeCoffee("latte"))
-console.log(makeCoffee("espresso"))
-console.log(makeCoffee("chai"))
+console.log(sandwichMaker("ham", "swiss"))
+console.log(sandwichMaker("turkey", "cheese"))
+console.log(sandwichMaker("peanut butter", "jelly"))
 ```
+
+What if we want to actually use the output later in our code? we can save it in a variable
+
+```jsx
+const pastramiSandwich = sandwichMaker("pastrami", "swiss")
+console.log(pastramiSandwich)
+```
+
+Now we can use that variable anywhere else in the program
 
 ### Pseudo Code
 
